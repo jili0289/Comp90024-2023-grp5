@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
+
+.AppHeader{
+    background-image: url(../../../public/images/texture.jpg);
+    background-size: 153%;
+}
+.AppHeader h1{
+    font-family: 'Dosis', sans-serif;
+    font-size: 45px;
+}
+
+.anticon-home,
+.anticon-mail{
+    font-size: 36px;
+    color: black;
+}
+
+.TeamMembers {
+    line-height: 2;  
+    align-items: center;
+    padding: 0px 30px;
+}
+
+.Name{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Email{
+    font-size: 16px;
+}
+  
+.ant-drawer .ant-drawer-title {
+    font-size: 20px;
+}
+
+.ant-drawer .ant-drawer-close{
+    font-size: 20px;
+}
+
+.ant-drawer-wrapper-body{
+    background-image: url(../../../public/images/texture.jpg);
+    background-size: 100%;
+    /* background-repeat: no-repeat; */
+}

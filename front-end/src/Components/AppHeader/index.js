@@ -1,13 +1,14 @@
-import { BellFilled, MailOutlined } from "@ant-design/icons";
-import { Badge, Drawer, Image, List, Space, Typography } from "antd";
+import { HomeOutlined, MailOutlined } from "@ant-design/icons";
+import { Badge, Drawer, Image, Space } from "antd";
 import { useEffect, useState } from "react";
 import { getComments, getOrders } from "../../API";
+import "./AppHeader.css";
+import { Link } from 'react-router-dom';
 
 function AppHeader() {
   const [comments, setComments] = useState([]);
   const [orders, setOrders] = useState([]);
   const [commentsOpen, setCommentsOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   useEffect(() => {
     getComments().then((res) => {
@@ -20,64 +21,53 @@ function AppHeader() {
 
   return (
     <div className="AppHeader">
-      <Image
-        width={40}
-        src="https://yt3.ggpht.com/ytc/AMLnZu83ghQ28n1SqADR-RbI2BGYTrqqThAtJbfv9jcq=s176-c-k-c0x00ffffff-no-rj"
-      ></Image>
-      <Typography.Title>CCC Group 5 Dashboard</Typography.Title>
+      <Link to="/">
+        <HomeOutlined />
+      </Link>
+
+      <h1 className="title">CCC Group 5 Dashboard</h1>
+
       <Space>
-        <Badge count={comments.length} dot>
+        <Badge >
           <MailOutlined
-            style={{ fontSize: 24 }}
             onClick={() => {
               setCommentsOpen(true);
             }}
           />
         </Badge>
-        <Badge count={orders.length}>
-          <BellFilled
-            style={{ fontSize: 24 }}
-            onClick={() => {
-              setNotificationsOpen(true);
-            }}
-          />
-        </Badge>
       </Space>
+
       <Drawer
-        title="Comments"
+        title="Team Members"
         open={commentsOpen}
         onClose={() => {
           setCommentsOpen(false);
         }}
         maskClosable
       >
-        <List
-          dataSource={comments}
-          renderItem={(item) => {
-            return <List.Item>{item.body}</List.Item>;
-          }}
-        ></List>
+        <div className="TeamMembers">
+            <div className="Name">Zixuan Cheng </div>
+            <div className="Email"><a href="zixuacheng@student.unimelb.edu.au">zixuacheng@student.unimelb.edu.au</a></div>
+            <div className="Name">Jiayun Huang </div>
+            <div className="Email"><a href="jiayunh3@student.unimelb.edu.au">jiayunh3@student.unimelb.edu.au</a></div>
+            <div className="Name">Jiayuan Li </div>
+            <div className="Email"><a href="jiayuan6@student.unimelb.edu.au">jiayuan6@student.unimelb.edu.au</a></div>
+            <div className="Name">Yufeng Xie </div>
+            <div className="Email"><a href="yufengx1@student.unimelb.edu.au">yufengx1@student.unimelb.edu.au</a></div>
+            <div className="Name">Chang Yu </div>
+            <div className="Email"><a href="chyu3@student.unimelb.edu.au">chyu3@student.unimelb.edu.au</a></div>
+        </div>
+
+        {/* <List
+          
+          // dataSource={comments}
+          // renderItem={(item) => {
+          //   return <List.Item>{item.body}</List.Item>;
+          // }}
+        ></List> 
+        用不到这个 */}
       </Drawer>
-      <Drawer
-        title="Notifications"
-        open={notificationsOpen}
-        onClose={() => {
-          setNotificationsOpen(false);
-        }}
-        maskClosable
-      >
-        <List
-          dataSource={orders}
-          renderItem={(item) => {
-            return (
-              <List.Item>
-                <Typography.Text strong>{item.title}</Typography.Text> has been
-                ordered!
-              </List.Item>
-            );
-          }}
-        ></List>
-      </Drawer>
+
     </div>
   );
 }

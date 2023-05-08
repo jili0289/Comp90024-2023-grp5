@@ -7,6 +7,7 @@ import {
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./SideMenu.css";
 
 function getItem(
   label,
@@ -52,21 +53,21 @@ function SideMenu() {
           },
           getItem('Scenario One', 'sub1', <AppstoreOutlined />, [
             getItem('Option 1', "/inventory"),
-            getItem('Option 2', "/orders"),
-            getItem('Option 3', "/customers"),
+            getItem('Option 2', "/inventory"),
+            getItem('Option 3', "/inventory")
           ]),
           
           getItem('Scenario Two', 'sub2', <AppstoreOutlined />, [
-            getItem('Option 4', "/inventory"),
+            getItem('Option 4', "/customers"),
             getItem('Option 5', "/customers"),
-            getItem('Option 6', "/orders",)
+            getItem('Option 6', "/customers")
             // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
           ]),
 
           getItem('Scenario Three', 'sub3', <AppstoreOutlined />, [
-            getItem('Option 7', "/inventory"),
-            getItem('Option 8', "/customers"),
-            getItem('Option 9', "/orders",)
+            getItem('Option 7', "/orders"),
+            getItem('Option 8', "/orders"),
+            getItem('Option 9', "/orders")
             // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
           ]),
           

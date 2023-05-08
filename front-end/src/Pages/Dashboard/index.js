@@ -7,6 +7,7 @@ import {
 import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
+import "./Dashboard.css";
 
 import {
   Chart as ChartJS,
@@ -48,7 +49,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <Space size={20} direction="vertical">
+    <Space size={20} direction="vertical" >
       <Typography.Title level={4}>Dashboard</Typography.Title>
       <Space direction="horizontal">
         <DashboardCard
@@ -162,7 +163,6 @@ function RecentOrders() {
         ]}
         loading={loading}
         dataSource={dataSource}
-        pagination={false}
       ></Table>
     </>
   );

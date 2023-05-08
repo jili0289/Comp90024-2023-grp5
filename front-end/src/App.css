@@ -5,11 +5,11 @@
     height: 100vh;
 }
 .AppHeader{
-    height: 50px;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px 20px 4px 12px;
+    padding: 6px 55px 6px 55px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
@@ -18,7 +18,7 @@
     flex: 1;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.05) ;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 .SideMenu{
     height: 100%;
@@ -27,5 +27,7 @@
     height: 100%;
 }
 .PageContent{
-    padding-left: 12px;
+    /* margin-top: 50px; */
+    width: 1520px;
+    margin-left: 12px;
 }
