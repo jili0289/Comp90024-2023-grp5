@@ -11,4 +11,6 @@ Then activate the virtualenv with the following command
 if you are on Linux: source env/bin/activate
 if you are on Windows: .\env\Scripts\activate
 
+Then install required package with: pip install -r requirements.txt
+
 Finally run the server with: python manage.py runserver
