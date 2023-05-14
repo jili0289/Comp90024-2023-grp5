@@ -1,0 +1,13 @@
+frontend：
+npm install react
+npm install antd
+npm install react-router-dom
+npm install mapbox-gl --save
+npm install echarts --save
+
+
+
+backend：
+Django
+Django rest framework
+mongodb
