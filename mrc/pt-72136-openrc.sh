@@ -13,8 +13,8 @@
 export OS_AUTH_URL=https://keystone.rc.nectar.org.au:5000/v3/
 # With the addition of Keystone we have standardized on the term **project**
 # as the entity that owns the resources.
-export OS_PROJECT_ID=b1dcb12851264405a070b5e8809c2f4e
-export OS_PROJECT_NAME="unimelb-comp90024-2023-grp-5"
+export OS_PROJECT_ID=4ae1a1500a53415e911dd6ea7088ffdc
+export OS_PROJECT_NAME="pt-72136"
 export OS_USER_DOMAIN_NAME="Default"
 if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
 export OS_PROJECT_DOMAIN_ID="default"
