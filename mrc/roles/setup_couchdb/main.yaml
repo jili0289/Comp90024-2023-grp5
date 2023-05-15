@@ -1,0 +1,31 @@
+#  comp90024 Cluster and cloud computing
+#Group 5 - Assignment 2
+
+
+
+# couchdb docker
+
+---
+- name: Pull docker image of couchdb
+  become: yes
+  community.docker.docker_image:
+    name: "{{ couchdb_image }}"
+    source: pull
+
+- name: Create and start a couchdb container
+  become: yes
+  community.docker.docker_container:
+    name: "couchdb{{ ansible_host }}"
+    image: "{{ couchdb_image }}"
+    state: started
+    ports:
+      - 5984:5984
+      - 4369:4369
+      - 9100-9200:9100-9200
+    env:
+      COUCHDB_PASSWORD: "{{ couchdb_password }}"
+      COUCHDB_USER: "{{ couchdb_user }}"
+      NODENAME: "{{ ansible_host }}"
+      COUCHDB_SECRET: "{{ couchdb_cookie }}"
+      ERL_FLAGS: " -setcookie {{ couchdb_cookie}}-name couchdb@{{ ansible_host}}"
+    container_default_behavior: no_defaults
