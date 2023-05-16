@@ -53,7 +53,7 @@ function SideMenu() {
           },
           getItem('Scenario One', 'sub1', <AppstoreOutlined />, [
             getItem('Option 1', "/map1"),
-            getItem('Option 2', "/"),
+            getItem('Option 2', "/chart1"),
             getItem('Option 3', "/")
           ]),
           
