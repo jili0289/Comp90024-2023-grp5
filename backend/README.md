@@ -14,3 +14,5 @@ if you are on Windows: .\env\Scripts\activate
 Then install required package with: pip install -r requirements.txt
 
 Finally run the server with: python manage.py runserver
+
+If packages are added, run: pip freeze > requirements.txt to update pip requirements

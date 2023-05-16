@@ -16,3 +16,9 @@ export const getCustomers = () => {
 export const getComments = () => {
   return fetch("https://dummyjson.com/comments").then((res) => res.json());
 };
+export const getHealth = () => {
+  return fetch("http://127.0.0.1:8000/couchdb/health").then((res) => res.json());
+};
+export const getSample = () => {
+  return fetch("http://127.0.0.1:8000/couchdb/sample").then((res) => res.json());
+};
