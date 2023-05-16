@@ -52,9 +52,9 @@ function SideMenu() {
             key: "/",
           },
           getItem('Scenario One', 'sub1', <AppstoreOutlined />, [
-            getItem('Option 1', "/inventory"),
-            getItem('Option 2', "/inventory"),
-            getItem('Option 3', "/inventory")
+            getItem('Option 1', "/map1"),
+            getItem('Option 2', "/"),
+            getItem('Option 3', "/")
           ]),
           
           getItem('Scenario Two', 'sub2', <AppstoreOutlined />, [
