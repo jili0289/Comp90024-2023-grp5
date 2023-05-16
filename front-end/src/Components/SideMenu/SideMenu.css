@@ -1,0 +1,32 @@
+
+.ant-menu {
+    width: 250px;
+    padding-left: 1%;
+    margin-right: 40px;
+    font-size: 20px;
+    background-image: url(../../../public/images/texture.jpg);
+    background-size: 130%;
+    /* background-repeat: no-repeat; */
+}
+
+.ant-menu-submenu,
+.ant-menu-submenu-title,
+.ant-menu-submenu-popup .ant-menu-vertical .ant-menu-item {
+    height: 80px !important;
+    line-height: 80px !important;
+    padding-inline: 8px;
+}
+
+.ant-menu-vertical .ant-menu-item{
+    height: 80px;
+    line-height: 80px;
+    padding-inline: 24px;
+}
+
+.ant-menu-item-icon svg {
+    font-size: 20px;
+} /* sidemenu的icon */
+
+.ant-menu-submenu-popup span{
+    font-size: 18px;
+}
