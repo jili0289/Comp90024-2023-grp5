@@ -1,26 +1,49 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
+import { getSample } from '../../API';
 
 const Chart1 = () => {
   const chartRef = useRef(null);
-
+  const [data, setData] = useState(0);
   useEffect(() => {
     if (!chartRef.current) {
       return;
     }
+    getSample().then((res) => {
+        setData(res)
+        //console.log(res)
+    })
+    console.log(data)
+    
+    const keys = [];  // 存储 key 的数组
+    const values = [];  // 存储 value 的数组
+
+    // 提取 key 和 value 并存储到数组中
+    for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+            const value = data[key];
+            keys.push(key);
+            values.push(value);
+        }
+    }
+  
+    console.log("Keys:", keys);
+    console.log("Values:", values);
+
+
 
     const chart = echarts.init(chartRef.current);
     const option = {
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: keys,
       },
       yAxis: {
         type: 'value',
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: values,
           type: 'bar',
         },
       ],
