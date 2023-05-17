@@ -4,33 +4,27 @@ import { getSample } from '../../API';
 
 const Chart1 = () => {
   const chartRef = useRef(null);
-  const [data, setData] = useState(0);
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-    if (!chartRef.current) {
+    if (!chartRef.current || !data) {
       return;
     }
-    getSample().then((res) => {
-        setData(res)
-        //console.log(res)
-    })
-    console.log(data)
-    
-    const keys = [];  // 存储 key 的数组
-    const values = [];  // 存储 value 的数组
+
+    const keys = []; // 存储 key 的数组
+    const values = []; // 存储 value 的数组
 
     // 提取 key 和 value 并存储到数组中
     for (const key in data) {
-        if (Object.hasOwnProperty.call(data, key)) {
-            const value = data[key];
-            keys.push(key);
-            values.push(value);
-        }
+      if (Object.hasOwnProperty.call(data, key)) {
+        const value = data[key];
+        keys.push(key);
+        values.push(value);
+      }
     }
-  
+
     console.log("Keys:", keys);
     console.log("Values:", values);
-
-
 
     const chart = echarts.init(chartRef.current);
     const option = {
@@ -54,6 +48,12 @@ const Chart1 = () => {
     return () => {
       chart.dispose();
     };
+  }, [data]);
+
+  useEffect(() => {
+    getSample().then((res) => {
+      setData(res);
+    });
   }, []);
 
   return (
