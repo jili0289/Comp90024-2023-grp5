@@ -4,7 +4,7 @@
   become: true
   tasks:
 
-  - name: install apache2 and php support package
+  - name: install apache and php for ubuntu servers
     package:
       update_cache: yes
       name:

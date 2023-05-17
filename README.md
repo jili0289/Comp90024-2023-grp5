@@ -20,4 +20,7 @@
 1. ssh-copy-id -i /path/to/newkey.pem.pub ubuntu@172.26.xxx.xxx
 
 # ping server:
-# ansible all -u ubuntu --key-file ~/.ssh/test.pem -i inventory  -m ping
+# ansible all -u ubuntu --key-file ~/.ssh/yc20230516.pem -i inventory  -m ping
+
+# openstack password: 
+    Y2RiYTQ0ZGQ4MDZmNTIw
