@@ -1,14 +1,12 @@
 ---
-
 - hosts: all
   become: true
   tasks:
-
-  - name: install apache and php for ubuntu servers
-    package:
-      update_cache: yes
-      name:
-        - apache2
-        - libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
+    - name: install apache and php for ubuntu servers
+      package:
+        update_cache: yes
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+      when: ansible_distribution == "Ubuntu"
