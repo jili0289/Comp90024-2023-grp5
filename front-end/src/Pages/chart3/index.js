@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { getLgbt1 } from '../../API';
+import { getLgbtratio } from '../../API';
 
 const Chart3 = () => {
   const chartRef = useRef(null);
@@ -51,7 +51,7 @@ const Chart3 = () => {
   }, [data]);
 
   useEffect(() => {
-    getLgbt1().then((res) => {
+    getLgbtratio().then((res) => {
 
       setData(res.data);
       console.log(data)
