@@ -10,4 +10,3 @@ npm install echarts --save
 backend：
 Django
 Django rest framework
-mongodb

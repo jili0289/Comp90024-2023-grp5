@@ -8,7 +8,7 @@
     - role: openstack-common
 # - role: openstack-images
     - role: create-volume
-    - role:create-security-group
+    - role: create-security-group
     - role: create-instance
 
 
