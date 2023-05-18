@@ -32,15 +32,15 @@ class SampleView(APIView):
    
 class LgbtCouplesView(APIView):
     def get(self, request):
-        data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]
+        data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]["couples"]
         return Response({'data': data})
     
 class CouplesLivingView(APIView):
     def get(self, request):
-        data = lgbt_residence_db["4789dae991c9ae7504a75c0820d88bcf"]
+        data = lgbt_residence_db["4789dae991c9ae7504a75c0820d88bcf"]["couples_living"]
         return Response({'data': data})
     
 class WeeklyRentView(APIView):
     def get(self, request):
-        data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]
+        data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]["rent"]
         return Response({'data': data})
