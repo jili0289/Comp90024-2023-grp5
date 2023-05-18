@@ -35,19 +35,33 @@ class SampleView(APIView):
 class LgbtCouplesView(APIView):
     def get(self, request):
         # data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]["couples"]
-        female_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_livingtogether").rows)
         same_sex_couple = map(lambda x: x.value, lgbt_residence_db.view("couple", "same_sex_couple").rows)
-        return Response({'female_couple_livingtogether': female_couple_livingtogether, "same_sex_couple": same_sex_couple})
+        return Response({"same_sex_couple": same_sex_couple})
     
 class CouplesLivingView(APIView):
     def get(self, request):
-        data = lgbt_residence_db["4789dae991c9ae7504a75c0820d88bcf"]["couples_living"]
-        return Response({'data': data})
+        # State part
+        state_dict = {}
+        female_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_livingtogether").rows)
+        male_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "male_couple_livingtogether").rows)
+        total_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "total_couple_livingtogether").rows)
+        state_dict["female_couple_livingtogether"] = female_couple_livingtogether
+        state_dict["male_couple_livingtogether"] = male_couple_livingtogether
+        state_dict["total_couple_livingtogether"] = total_couple_livingtogether
+        # City Part
+        city_dict = {}
+        female_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_city").rows)
+        male_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "male_couple_city").rows)
+        total_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "total_couple_city").rows)
+        city_dict["female_couple_city"] = female_couple_city
+        city_dict["male_couple_city"] = male_couple_city
+        city_dict["total_couple_city"] = total_couple_city
+        return Response({'State': state_dict, "City": city_dict})
     
 class WeeklyRentView(APIView):
     def get(self, request):
         # data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]["rent"]
-        data = weekly_rent_db.view(r"sample", "new-view", include_docs=True).rows
+        data = map(lambda x: x.value, weekly_rent_db.view("rent", "rent").rows)
         return Response({'data': data})
     
 class TransportVicstopsView(APIView):
