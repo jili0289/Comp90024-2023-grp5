@@ -10,6 +10,9 @@ lgbt_residence_db = server.get("lgbt_residence")
 weekly_rent_db = server.get("rental_weeklyrent")
 transport_vicstops_db = server.get("transport_vicstops")
 transport_nswstops_db = server.get("transport_nswstops")
+twitter_lgbt_db = server.get("twitter_lgbt")
+twitter_rent_db = server.get("twitter_rent")
+twitter_transport_db = server.get("twitter_transport")
 
 
 class HealthCheckView(APIView):
@@ -71,3 +74,18 @@ class TransportVicstopsView(APIView):
         vic_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), vic_raw_data))
         nsw_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), nsw_raw_data))
         return Response({'data': vic_data+nsw_data})
+    
+class TwitterRentView(APIView):
+    def get(self, request):
+        twitter_rent = map(lambda x: x.value, twitter_rent_db.view("rent", "rent_view").rows)
+        return Response({'data': twitter_rent})
+    
+class TwitterTransportView(APIView):
+    def get(self, request):
+        twitter_transport = map(lambda x: x.value, twitter_transport_db.view("transport", "transport_view").rows)
+        return Response({'data': twitter_transport})
+
+class TwitterLgbtView(APIView):
+    def get(self, request):
+        twitter_lgbt = map(lambda x: x.value, twitter_lgbt_db.view("view", "lgbt_view").rows)
+        return Response({'data': twitter_lgbt})
