@@ -8,6 +8,8 @@ import couchdb2
 server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", password="admin", use_session=True)
 lgbt_residence_db = server.get("lgbt_residence")
 weekly_rent_db = server.get("rental_weeklyrent")
+transport_vicstops_db = server.get("transport_vicstops")
+transport_nswstops_db = server.get("transport_nswstops")
 
 
 class HealthCheckView(APIView):
@@ -32,8 +34,10 @@ class SampleView(APIView):
    
 class LgbtCouplesView(APIView):
     def get(self, request):
-        data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]["couples"]
-        return Response({'data': data})
+        # data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]["couples"]
+        female_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_livingtogether").rows)
+        same_sex_couple = map(lambda x: x.value, lgbt_residence_db.view("couple", "same_sex_couple").rows)
+        return Response({'female_couple_livingtogether': female_couple_livingtogether, "same_sex_couple": same_sex_couple})
     
 class CouplesLivingView(APIView):
     def get(self, request):
@@ -42,5 +46,14 @@ class CouplesLivingView(APIView):
     
 class WeeklyRentView(APIView):
     def get(self, request):
-        data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]["rent"]
+        # data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]["rent"]
+        data = weekly_rent_db.view(r"sample", "new-view", include_docs=True).rows
         return Response({'data': data})
+    
+class TransportVicstopsView(APIView):
+    def get(self, request):
+        vic_raw_data = transport_vicstops_db.view(r"location", "latitude_longitude").rows
+        nsw_raw_data = transport_nswstops_db.view(r"location", "latitude_longitude").rows
+        vic_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), vic_raw_data))
+        nsw_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), nsw_raw_data))
+        return Response({'data': vic_data+nsw_data})

@@ -12,4 +12,5 @@ urlpatterns = [
     path('lgbt-couples', views.LgbtCouplesView.as_view(), name="lgbt-couples"),
     path('couples-living', views.CouplesLivingView.as_view(), name="couples-living"),
     path('weekly-rent', views.WeeklyRentView.as_view(), name="weekly-rent"),
+    path('transport-stops', views.TransportVicstopsView.as_view(), name="transport-stops"),
 ]
