@@ -1,0 +1,54 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: install updates (Ubuntu)
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+- hosts: all
+  become: true
+  tasks:
+    - name: install useful tools
+      apt:    
+        name:
+          - net-tools
+
+- hosts: web_servers
+  become: true
+  tasks:
+    - name: install required packages
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+          - python3
+          - python3-pip
+          - python3-venv
+        state: latest
+
+    - name: install Django in virtual environment
+      shell: |
+        python3 -m venv /home/ubuntu/venv
+        source /home/ubuntu/venv/bin/activate
+        pip install --upgrade pip
+        pip install Django
+
+    - name: copy index.html file
+      copy:
+        src: ../index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+    - name: install mariadb package (Ubuntu)
+      package:
+        name: mariadb-server
+        state: latest
