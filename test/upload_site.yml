@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: install updates (Ubuntu)
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+- hosts: web_servers
+  become: true
+  tasks:
+    - name: install required packages
+      apt:
+        name:
+          - net-tools
+          - apache2
+        state: latest
+
+    - name: Copy folder to server
+      synchronize:
+        src: front-end/build/
+        dest: /var/www/html/
+      vars:
+        rsync_opts: "--chmod=755"
+      become: true
+
