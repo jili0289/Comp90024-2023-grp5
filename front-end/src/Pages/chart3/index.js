@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 import { getLgbt1 } from '../../API';
 
-const Chart1 = () => {
+const Chart3 = () => {
   const chartRef = useRef(null);
   const [data, setData] = useState(null);
 
@@ -66,4 +66,4 @@ const Chart1 = () => {
   );
 };
 
-export default Chart1;
+export default Chart3;

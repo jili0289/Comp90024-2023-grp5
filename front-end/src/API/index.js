@@ -22,3 +22,7 @@ export const getHealth = () => {
 export const getSample = () => {
   return fetch("http://127.0.0.1:8000/couchdb/sample").then((res) => res.json());
 };
+
+export const getLgbt1 = () => {
+  return fetch("http://127.0.0.1:8000/couchdb/lgbt-couples").then((res) => res.json());
+};
