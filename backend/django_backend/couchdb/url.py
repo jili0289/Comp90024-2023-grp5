@@ -9,4 +9,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('health', views.HealthCheckView.as_view(), name="HealthCheck"),
     path('sample', views.SampleView.as_view(), name="Sample"),
+    path('lgbt-couples', views.LgbtCouplesView.as_view(), name="lgbt-couples"),
+    path('couples-living', views.CouplesLivingView.as_view(), name="couples-living"),
 ]

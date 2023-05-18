@@ -5,12 +5,14 @@ from django.http import HttpResponse
 import couchdb2
 
 # Create your views here.
-server = couchdb2.Server()
+server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", password="admin", use_session=True)
+lgbt_residence_db = server.get("lgbt_residence")
 
 
 class HealthCheckView(APIView):
     def get(self, request):
-        return Response({'status': 'running'})
+        memebership = server.get_membership()
+        return Response({'status': 'running', "membership" : memebership})
     
 class SampleView(APIView):
    def get(self, request):
@@ -26,3 +28,13 @@ class SampleView(APIView):
             "Northern Territory": 0.9,
             "Australian Capital Territory": 1.8
             })
+   
+class LgbtCouplesView(APIView):
+    def get(self, request):
+        data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]
+        return Response({'data': data})
+    
+class CouplesLivingView(APIView):
+    def get(self, request):
+        data = lgbt_residence_db["4789dae991c9ae7504a75c0820d88bcf"]
+        return Response({'data': data})
