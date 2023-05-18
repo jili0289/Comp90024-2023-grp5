@@ -56,7 +56,7 @@ import mapboxgl from 'mapbox-gl';
 //   // 其他多边形地区数据...
 // ];
 
-function Map1() {
+function Mapt3() {
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoieXVmZW5neDEiLCJhIjoiY2xocWI3ZHE2MmQwdjNkcDAyNGRmd2R1NiJ9.jwoEIy9ZhNrwL9eqUiVCOQ';
 
@@ -177,76 +177,11 @@ function Map1() {
 
   return (
     <div>
-      <h1>Map 1</h1>
+      <h1>Twitter</h1>
       <div id="map" style={{ width: '100%', height: '1000px' }}></div>
     </div>
   );
 }
 
-export default Map1;
+export default Mapt3;
 
-// function Map1() {
-//   const [loading, setLoading] = useState(false);
-//   const [dataSource, setDataSource] = useState([]);
-
-//   useEffect(() => {
-//     setLoading(true);
-//     getInventory().then((res) => {
-//       setDataSource(res.products);
-//       setLoading(false);
-//     });
-//   }, []);
-
-//   return (
-
-//     // <Space size={20} direction="vertical">
-//     //   <Typography.Title level={4}>Inventory</Typography.Title>
-//     //   <Table
-//     //     loading={loading}
-//     //     columns={[
-//     //       {
-//     //         title: "Thumbnail",
-//     //         dataIndex: "thumbnail",
-//     //         render: (link) => {
-//     //           return <Avatar src={link} />;
-//     //         },
-//     //       },
-//     //       {
-//     //         title: "Title",
-//     //         dataIndex: "title",
-//     //       },
-//     //       {
-//     //         title: "Price",
-//     //         dataIndex: "price",
-//     //         render: (value) => <span>${value}</span>,
-//     //       },
-//     //       {
-//     //         title: "Rating",
-//     //         dataIndex: "rating",
-//     //         render: (rating) => {
-//     //           return <Rate value={rating} allowHalf disabled />;
-//     //         },
-//     //       },
-//     //       {
-//     //         title: "Stock",
-//     //         dataIndex: "stock",
-//     //       },
-
-//     //       {
-//     //         title: "Brand",
-//     //         dataIndex: "brand",
-//     //       },
-//     //       {
-//     //         title: "Category",
-//     //         dataIndex: "category",
-//     //       },
-//     //     ]}
-//     //     dataSource={dataSource}
-//     //     pagination={{
-//     //       pageSize: 5,
-//     //     }}
-//     //   ></Table>
-//     // </Space>
-//   );
-// }
-// export default Map1;

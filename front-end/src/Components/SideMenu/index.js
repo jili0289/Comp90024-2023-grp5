@@ -52,22 +52,22 @@ function SideMenu() {
             key: "/",
           },
           getItem('Scenario One', 'sub1', <AppstoreOutlined />, [
-            getItem('Option 1', "/map1"),
-            getItem('Option 2', "/chart1"),
-            getItem('Option 3', "/")
+            getItem('Twitter', "/mapt1"),
+            getItem('Mastodon', "/mapm1"),
+            getItem('Charts', "/chart1")
           ]),
           
           getItem('Scenario Two', 'sub2', <AppstoreOutlined />, [
-            getItem('Option 4', "/customers"),
-            getItem('Option 5', "/customers"),
-            getItem('Option 6', "/customers")
+            getItem('Twitter', "/mapt2"),
+            getItem('Mastodon', "/mapm2"),
+            getItem('Charts', "/chart2")
             // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
           ]),
 
           getItem('Scenario Three', 'sub3', <AppstoreOutlined />, [
-            getItem('Option 7', "/orders"),
-            getItem('Option 8', "/orders"),
-            getItem('Option 9', "/orders")
+            getItem('Twitter', "/mapt3"),
+            getItem('Mastodon', "/mapm3"),
+            getItem('Charts', "/chart3")
             // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
           ]),
           
