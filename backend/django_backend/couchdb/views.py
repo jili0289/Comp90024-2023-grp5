@@ -9,7 +9,7 @@ server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", p
 lgbt_residence_db = server.get("lgbt_residence")
 weekly_rent_db = server.get("rental_weeklyrent")
 transport_vicstops_db = server.get("transport_vicstops")
-transport_nswstops_db = server.get("transport_nswstops")
+transport_nswstops_db = server.get("transport_nswstop")
 twitter_lgbt_db = server.get("twitter_lgbt")
 twitter_rent_db = server.get("twitter_rent")
 twitter_transport_db = server.get("twitter_transport")
