@@ -14,6 +14,7 @@
       apt:    
         name:
           - net-tools
+        state: latest
 
 - hosts: web_servers
   become: true
@@ -28,21 +29,13 @@
           - python3-venv
         state: latest
 
-    - name: install Django in virtual environment
-      shell: |
-        python3 -m venv /home/ubuntu/venv
-        source /home/ubuntu/venv/bin/activate
-        pip install --upgrade pip
-        pip install Django
-
-    - name: copy index.html file
-      copy:
-        src: ../index.html
-        dest: /var/www/html/index.html
-        owner: root
-        group: root
-        mode: 0644
-
+    - name: Copy folder to server
+      synchronize:
+        src: react-web-app/build/
+        dest: /var/www/html/
+      vars:
+        rsync_opts: "--chmod=755"
+      become: true
 
 
 - hosts: db_servers

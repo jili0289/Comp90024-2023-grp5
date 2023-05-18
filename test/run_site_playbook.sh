@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook playbooks/site.yml 
+ansible-playbook site.yml 
