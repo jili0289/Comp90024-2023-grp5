@@ -7,6 +7,7 @@ import couchdb2
 # Create your views here.
 server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", password="admin", use_session=True)
 lgbt_residence_db = server.get("lgbt_residence")
+weekly_rent_db = server.get("rental_weeklyrent")
 
 
 class HealthCheckView(APIView):
@@ -37,4 +38,9 @@ class LgbtCouplesView(APIView):
 class CouplesLivingView(APIView):
     def get(self, request):
         data = lgbt_residence_db["4789dae991c9ae7504a75c0820d88bcf"]
+        return Response({'data': data})
+    
+class WeeklyRentView(APIView):
+    def get(self, request):
+        data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]
         return Response({'data': data})
