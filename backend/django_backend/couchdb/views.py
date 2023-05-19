@@ -8,8 +8,8 @@ import couchdb2
 server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", password="admin", use_session=True)
 lgbt_residence_db = server.get("lgbt_residence")
 weekly_rent_db = server.get("rental_weeklyrent")
-transport_vicstops_db = server.get("transport_vicstops")
-transport_nswstops_db = server.get("transport_nswstop")
+transport_vicstops_db = server.get("trans_combined")
+transport_nswstops_db = server.get("trans_combined_nsw")
 twitter_lgbt_db = server.get("twitter_lgbt")
 twitter_rent_db = server.get("twitter_rent")
 twitter_transport_db = server.get("twitter_transport")
@@ -69,10 +69,10 @@ class WeeklyRentView(APIView):
     
 class TransportVicstopsView(APIView):
     def get(self, request):
-        vic_raw_data = transport_vicstops_db.view(r"location", "latitude_longitude").rows
-        nsw_raw_data = transport_nswstops_db.view(r"location", "latitude_longitude").rows
-        vic_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), vic_raw_data))
-        nsw_data = list(map(lambda x: (x.value["latitude"], x.value["longitude"]), nsw_raw_data))
+        vic_raw_data = transport_vicstops_db.view(r"stops", "vic_stops").rows
+        nsw_raw_data = transport_nswstops_db.view(r"stops", "nsw_stops").rows
+        vic_data = list(map(lambda x: x.value, vic_raw_data))
+        nsw_data = list(map(lambda x: x.value, nsw_raw_data))
         return Response({'data': vic_data+nsw_data})
     
 class TwitterRentView(APIView):
