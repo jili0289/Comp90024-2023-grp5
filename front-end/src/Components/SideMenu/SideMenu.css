@@ -6,7 +6,6 @@
     font-size: 20px;
     background-image: url(../../../public/images/texture.jpg);
     background-size: 130%;
-    /* background-repeat: no-repeat; */
 }
 
 .ant-menu-submenu,
@@ -25,8 +24,12 @@
 
 .ant-menu-item-icon svg {
     font-size: 20px;
-} /* sidemenu的icon */
+} 
 
 .ant-menu-submenu-popup span{
     font-size: 18px;
+}
+
+.ant-menu-title-content {
+    margin-inline-start: 14px !important;
 }

@@ -68,16 +68,16 @@ function Mapt1() {
               property: 'value',
               type: 'exponential',
               stops: [
-                [0, 5],
-                [100, 10],
+                [0, 10],
+                [20000, 30],
               ],
             },
             'circle-color': {
               property: 'value',
               type: 'exponential',
               stops: [
-                [0, 'blue'],
-                [10000, 'red'],
+                [0, 'blue'], // 自定义蓝色
+                [20000, 'red'], // 自定义红色
               ],
             },
             'circle-opacity': 0.7,
@@ -107,16 +107,17 @@ function Mapt1() {
 
   return (
     <div>
-      <h1>Twitter</h1>
+      <h1 style={{ fontWeight: 400}}>Twitter</h1>
+      <div style={{ marginBottom: '30px' }}></div> {/* 添加空白区域 */}
       <div id="map" style={{ width: '100%', height: '1000px' }}></div>
       {isTextBoxVisible && (
         <div
           style={{
             position: 'absolute',
-            top: '203px',
-            right: '105px',
-            padding: '10px 20px 10px 20px',
-            background: '#fff',
+            top: '206px',
+            right: '103px',
+            padding: '10px 24px 10px 24px',
+            background: '#F2F7FD',
             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
             borderRadius: '4px',
             zIndex: 1,
@@ -134,6 +135,8 @@ function Mapt1() {
           <p style={{ fontWeight: 'bold', fontSize: '20px'}}>Mean Sentiment: {selectedPoint.sentiment}</p>
         </div>
       )}
+
+      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
     </div>
   );
 }

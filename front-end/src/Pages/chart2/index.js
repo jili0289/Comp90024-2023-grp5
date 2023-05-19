@@ -149,11 +149,11 @@ const Chart2 = () => {
         data: Object.keys(data3), // 图例的数据，即系列的名称
         formatter: function (name) {
           // 自定义图例的文字
-          if (name === 'female_couple_livingtogether') {
+          if (name === 'female_couple_city') {
             return 'Female Couple';
-          } else if (name === 'male_couple_livingtogether') {
+          } else if (name === 'male_couple_city') {
             return 'Male Couple';
-          } else if (name === 'total_couple_livingtogether') {
+          } else if (name === 'total_couple_city') {
             return 'Total Couple';
           } else {
             return name;
@@ -183,15 +183,20 @@ const Chart2 = () => {
 
   return (
     <div>
-      <h1>Charts</h1>
-      <div ref={chartRef1} style={{ width: '60%', height: 500 }}></div>
-      <h2 style={{ marginBottom: '35px', marginTop: '40px', position: 'relative', left: '54px' }}>
+      <h1 style={{ position: 'relative', left: '54px', fontWeight: 400, fontSize: '38px', marginTop: '60px' }}>Charts</h1>
+      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px' , fontWeight: 400 }}>
+        Proportion of LGBT People in Different Cities</h2>
+      <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div>
+      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px', fontWeight: 400 }}>
         Proportion of LGBT couples living together by State vs by City</h2>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <div ref={chartRef2} style={{ width: '50%', height: 400 }}></div>
-        <div ref={chartRef3} style={{ width: '50%', height: 400 }}></div>
+        <div ref={chartRef2} style={{ width: '50%', height: 500 }}></div>
+        <div ref={chartRef3} style={{ width: '50%', height: 500 }}></div>
       </div>
       
+      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
     </div>
 
   );

@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
+import { getCustomers, getInventory, getOrders } from "../../API";
 import "./Dashboard.css";
 
 import {

@@ -1,8 +1,8 @@
 import {
   AppstoreOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
-  UserOutlined,
+  CarOutlined,
+  TeamOutlined,
+  BankOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
@@ -51,26 +51,23 @@ function SideMenu() {
             icon: <AppstoreOutlined />,
             key: "/",
           },
-          getItem('Scenario One', 'sub1', <AppstoreOutlined />, [
+          getItem('Scenario One', 'sub1', <CarOutlined />, [
             getItem('Twitter', "/mapt1"),
             getItem('Mastodon', "/mapm1"),
             getItem('Charts', "/chart1")
           ]),
           
-          getItem('Scenario Two', 'sub2', <AppstoreOutlined />, [
+          getItem('Scenario Two', 'sub2', <TeamOutlined />, [
             getItem('Twitter', "/mapt2"),
             getItem('Mastodon', "/mapm2"),
             getItem('Charts', "/chart2")
-            // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
           ]),
 
-          getItem('Scenario Three', 'sub3', <AppstoreOutlined />, [
+          getItem('Scenario Three', 'sub3', <BankOutlined />, [
             getItem('Twitter', "/mapt3"),
             getItem('Mastodon', "/mapm3"),
             getItem('Charts', "/chart3")
-            // getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')])
-          ]),
-          
+          ]),      
         ]}
       ></Menu>
     </div>

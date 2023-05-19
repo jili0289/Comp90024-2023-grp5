@@ -1,62 +1,11 @@
-// import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-//import { getInventory } from "../../API";
+import { getLgbtMast } from "../../API";
 import mapboxgl from 'mapbox-gl';
 
-// const data = [
-//   // GeoJSON 数据，包含多边形地区和相应的数值
-//   {
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Polygon',
-//       coordinates: [[
-//         [140.9619, -39.18253],
-//         [140.9619, -39.28442],
-//         [141.18216, -39.28442],
-//         [141.18216, -39.18253],
-//         [140.9619, -39.18253]
-//       ]],
-//     },
-//     properties: {
-//       value: 100, // 数值
-//     },
-//   },
-//   {
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Polygon',
-//       coordinates: [[
-//         [141.00292, -29.17716],
-//         [141.00292, -37.50533],
-//         [154.63466, -37.50533],
-//         [154.63466, -29.17716],
-//         [141.00292, -29.17716]
-//       ]],
-//     },
-//     properties: {
-//       value: 20, // 数值
-//     },
-//   },
-//   {
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Polygon',
-//       coordinates: [[
-//         [112.92109, -13.76356],
-//         [112.92109, -35.02347],
-//         [129.00297, -35.02347],
-//         [129.00297, -13.76356],
-//         [112.92109, -13.76356]
-//       ]],
-//     },
-//     properties: {
-//       value: 20, // 数值
-//     },
-//   },
-//   // 其他多边形地区数据...
-// ];
+function Mapm2() {
+  const [selectedPoint, setSelectedPoint] = useState({ name: '', value: '' });
+  const [isTextBoxVisible, setTextBoxVisibility] = useState(false);
 
-function Mapm1() {
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoieXVmZW5neDEiLCJhIjoiY2xocWI3ZHE2MmQwdjNkcDAyNGRmd2R1NiJ9.jwoEIy9ZhNrwL9eqUiVCOQ';
 
@@ -66,187 +15,130 @@ function Mapm1() {
       center: [133.7751, -25.2744],
       zoom: 20,
       attributionControl: false,
-      pitch: 0, // 设置俯仰角为0，使地图以2D视图展示
-      bearing: 0, // 设置方位角为0，使地图以正北方向展示
+      pitch: 0,
+      bearing: 0,
     });
+
     const bounds = [
       [112.5, -44], 
       [153.5, -10], 
     ];
     map.fitBounds(bounds, { padding: 20 });
 
-    const dataPoints = [
-      { name: 'Canberra', coordinates: [149.1287, -35.2820], value: 10 },
-      { name: 'Sydney', coordinates: [151.2093, -33.8688], value: 120 },
-      { name: 'Melbourne', coordinates: [144.9631, -37.8136], value: 150 },
-      { name: 'Brisbane', coordinates: [153.0251, -27.4698], value: 90 },
-      { name: 'Perth', coordinates: [115.8575, -31.9505], value: 1100 },
-      { name: 'Adelaide', coordinates: [138.6007, -34.9285], value: 100 },
-      { name: 'Darwin', coordinates: [130.8418, -12.4634], value: 70 },
-      { name: 'Hobart', coordinates: [147.3250, -42.8821], value: 85 },
-    ];
-    
-    const features = dataPoints.map(({ name, coordinates, value }) => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: coordinates,
-      },
-      properties: {
-        value: value,
-        name: name,
-      },
-    }));
-    
-    // 添加点阵图层
-    map.on('load', () => {
-      // 创建数据源
-      map.addSource('dots', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: features,
-          // features: [
-          //   // 在这里添加你的数据点
-          //   // 每个数据点都需要包含经纬度和数值大小信息
-          //   // 例如：{ "type": "Feature", "geometry": { "type": "Point", "coordinates": [longitude, latitude] }, "properties": { "value": 10 } }
-          // ],
-        },
-      });
+    map.on('style.load', () => {
+      // 从API获取数据
+      getLgbtMast().then((res) => {
+        const data = res.data.map(({ name, coordinates, value, sentiment }) => ({
+          name: name,
+          coordinates: coordinates,
+          value: value,
+          sentiment: sentiment,
+        }));
 
-      // 添加图层
-      map.addLayer({
-        id: 'dots-layer',
-        type: 'circle',
-        source: 'dots',
-        paint: {
-          'circle-radius': {
-            property: 'value',
-            type: 'exponential',
-            stops: [
-              // 根据数值大小设置点的半径范围
-              [0, 5],
-              [100, 10],
-            ],
+        // 创建数据源
+        const geojson = {
+          type: 'FeatureCollection',
+          features: data.map(({ name, coordinates, value, sentiment }) => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [coordinates[1], coordinates[0]],
+            },
+            properties: {
+              value: value,
+              name: name,
+              sentiment: sentiment,
+            },
+          })),
+        };
+
+        // 添加数据源
+        map.addSource('dots', {
+          type: 'geojson',
+          data: geojson,
+        });
+
+        // 添加图层
+        map.addLayer({
+          id: 'dots-layer',
+          type: 'circle',
+          source: 'dots',
+          paint: {
+            'circle-radius': {
+              property: 'value',
+              type: 'exponential',
+              stops: [
+                [0, 10],
+                [3000, 30],
+              ],
+            },
+            'circle-color': {
+              property: 'value',
+              type: 'exponential',
+              stops: [
+                [0, 'blue'], // 自定义蓝色
+                [3000, 'red'], // 自定义红色
+              ],
+            },
+            'circle-opacity': 0.7,
           },
-          'circle-color': {
-            property: 'value',
-            type: 'exponential',
-            stops: [
-              // 根据数值大小设置点的颜色范围
-              [0, 'blue'],
-              [100, 'red'],
-            ],
-          },
-          'circle-opacity': 0.7,
-        },
+        });
+
+        // 鼠标点击事件处理程序
+        map.on('click', 'dots-layer', (e) => {
+          const features = map.queryRenderedFeatures(e.point, {
+            layers: ['dots-layer'],
+          });
+
+          if (features.length > 0) {
+            const { name, value, sentiment } = features[0].properties;
+            setSelectedPoint({ name, value, sentiment });
+            setTextBoxVisibility(true);
+          }
+        });
       });
     });
-    
-    // map.on('load', () => {
-    //   map.addSource('heatmap-source', {
-    //     type: 'geojson',
-    //     data: {
-    //       type: 'FeatureCollection',
-    //       features: data,
-    //     },
-    //   });
 
-    //   map.addLayer({
-    //     id: 'heatmap-layer',
-    //     type: 'fill',
-    //     source: 'heatmap-source',
-    //     paint: {
-    //       'fill-color': [
-    //         'interpolate',
-    //         ['linear'],
-    //         ['get', 'value'],
-    //         0, 'blue', // 最小值时的颜色
-    //         100, 'red', // 最大值时的颜色
-    //       ],
-    //       'fill-opacity': 0.8,
-    //     },
-    //   });
-    // });
-
+    // 在组件卸载时清理地图实例
     return () => {
-      // 在组件卸载时清理地图实例
       map.remove();
     };
   }, []);
 
   return (
     <div>
-      <h1>Mastodon</h1>
+      <h1 style={{ fontWeight: 400}}>Mastodon</h1>
+      <div style={{ marginBottom: '30px' }}></div> {/* 添加空白区域 */}
       <div id="map" style={{ width: '100%', height: '1000px' }}></div>
+      {isTextBoxVisible && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '206px',
+            right: '103px',
+            padding: '10px 24px 10px 24px',
+            background: '#F2F7FD',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            borderRadius: '4px',
+            zIndex: 1,
+            fontFamily: 'Dosis, sans-serif',
+            fontWeight: 200,
+            fontSize: '16px',
+            textAlign: 'center',
+            color: '#333',
+          }}
+        >
+          <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '8px' }}>
+            City: {selectedPoint.name}
+          </p>
+          <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '6px' }}>Counts: {selectedPoint.value}</p>
+          <p style={{ fontWeight: 'bold', fontSize: '20px'}}>Sentiment: {selectedPoint.sentiment}</p>
+        </div>
+      )}
+
+      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
     </div>
   );
 }
 
-export default Mapm1;
-
-// function Map1() {
-//   const [loading, setLoading] = useState(false);
-//   const [dataSource, setDataSource] = useState([]);
-
-//   useEffect(() => {
-//     setLoading(true);
-//     getInventory().then((res) => {
-//       setDataSource(res.products);
-//       setLoading(false);
-//     });
-//   }, []);
-
-//   return (
-
-//     // <Space size={20} direction="vertical">
-//     //   <Typography.Title level={4}>Inventory</Typography.Title>
-//     //   <Table
-//     //     loading={loading}
-//     //     columns={[
-//     //       {
-//     //         title: "Thumbnail",
-//     //         dataIndex: "thumbnail",
-//     //         render: (link) => {
-//     //           return <Avatar src={link} />;
-//     //         },
-//     //       },
-//     //       {
-//     //         title: "Title",
-//     //         dataIndex: "title",
-//     //       },
-//     //       {
-//     //         title: "Price",
-//     //         dataIndex: "price",
-//     //         render: (value) => <span>${value}</span>,
-//     //       },
-//     //       {
-//     //         title: "Rating",
-//     //         dataIndex: "rating",
-//     //         render: (rating) => {
-//     //           return <Rate value={rating} allowHalf disabled />;
-//     //         },
-//     //       },
-//     //       {
-//     //         title: "Stock",
-//     //         dataIndex: "stock",
-//     //       },
-
-//     //       {
-//     //         title: "Brand",
-//     //         dataIndex: "brand",
-//     //       },
-//     //       {
-//     //         title: "Category",
-//     //         dataIndex: "category",
-//     //       },
-//     //     ]}
-//     //     dataSource={dataSource}
-//     //     pagination={{
-//     //       pageSize: 5,
-//     //     }}
-//     //   ></Table>
-//     // </Space>
-//   );
-// }
-// export default Map1;
+export default Mapm2;
