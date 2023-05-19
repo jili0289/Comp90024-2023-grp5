@@ -114,8 +114,6 @@ function Dashboard() {
         />
       </Space>
       <Space>
-        <RecentOrders />
-        <DashboardChart />
       </Space>
     </Space>
   );
@@ -131,90 +129,6 @@ function DashboardCard({ title, value, icon }) {
     </Card>
   );
 }
-function RecentOrders() {
-  const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    getOrders().then((res) => {
-      setDataSource(res.products.splice(0, 3));
-      setLoading(false);
-    });
-  }, []);
 
-  return (
-    <>
-      <Typography.Text>Recent Orders</Typography.Text>
-      <Table
-        columns={[
-          {
-            title: "Title",
-            dataIndex: "title",
-          },
-          {
-            title: "Quantity",
-            dataIndex: "quantity",
-          },
-          {
-            title: "Price",
-            dataIndex: "discountedPrice",
-          },
-        ]}
-        loading={loading}
-        dataSource={dataSource}
-      ></Table>
-    </>
-  );
-}
-
-function DashboardChart() {
-  const [reveneuData, setReveneuData] = useState({
-    labels: [],
-    datasets: [],
-  });
-
-  useEffect(() => {
-    getRevenue().then((res) => {
-      const labels = res.carts.map((cart) => {
-        return `User-${cart.userId}`;
-      });
-      const data = res.carts.map((cart) => {
-        return cart.discountedTotal;
-      });
-
-      const dataSource = {
-        labels,
-        datasets: [
-          {
-            label: "Revenue",
-            data: data,
-            backgroundColor: "rgba(255, 0, 0, 1)",
-          },
-        ],
-      };
-
-      setReveneuData(dataSource);
-    });
-  }, []);
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
-      title: {
-        display: true,
-        text: "Order Revenue",
-      },
-    },
-  };
-
-  return (
-    <Card style={{ width: 500, height: 250 }}>
-      <Bar options={options} data={reveneuData} />
-    </Card>
-  );
-}
 export default Dashboard;

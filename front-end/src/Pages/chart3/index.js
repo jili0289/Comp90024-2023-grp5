@@ -1,67 +1,64 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { getLgbtratio } from '../../API';
+import { getRentWeekly } from '../../API';
 
 const Chart3 = () => {
-  const chartRef = useRef(null);
-  const [data, setData] = useState(null);
+  const chartRef1 = useRef(null);
+  const [data1, setData1] = useState(null);
+
 
   useEffect(() => {
-    if (!chartRef.current || !data) {
+    if (!chartRef1.current || !data1) {
       return;
     }
 
-    const keys = []; // 存储 key 的数组
-    const values = []; // 存储 value 的数组
+    // Chart 1
+    const keys1 = Object.keys(data1.data[0]);
+    const values1 = Object.values(data1.data[0]);
 
-    // 提取 key 和 value 并存储到数组中
-    for (const key in data) {
-      if (Object.hasOwnProperty.call(data, key)) {
-        const value = data[key];
-        keys.push(key);
-        values.push(value);
-      }
-    }
-
-    console.log("Keys:", keys);
-    console.log("Values:", values);
-
-    const chart = echarts.init(chartRef.current);
-    const option = {
+    const chart1 = echarts.init(chartRef1.current);
+    const option1 = {
+      // title: {
+      //   text: 'Bar Chart of blabla', // 设置标题文本
+      //   textStyle: {
+      //     fontWeight: 'bold', 
+      //     fontSize: 18, 
+      //     left: 'center', // 标题居中对齐
+      //     fontFamily: 'Raleway, sans-serif', 
+      //   },
+      // },
       xAxis: {
         type: 'category',
-        data: keys,
+        data: keys1,
       },
       yAxis: {
         type: 'value',
       },
       series: [
         {
-          data: values,
+          data: values1,
           type: 'bar',
         },
       ],
     };
 
-    chart.setOption(option);
-
+    chart1.setOption(option1);
+    
     return () => {
-      chart.dispose();
+      chart1.dispose();
     };
-  }, [data]);
+  }, [data1]);
 
   useEffect(() => {
-    getLgbtratio().then((res) => {
-
-      setData(res.data);
-      console.log(data)
+    getRentWeekly().then((res) => {
+      setData1(res);
     });
   }, []);
 
   return (
     <div>
       <h1>Charts</h1>
-      <div ref={chartRef} style={{ width: '50%', height: 400 }}></div>
+      <div ref={chartRef1} style={{ width: '60%', height: 700 }}></div>
     </div>
   );
 };

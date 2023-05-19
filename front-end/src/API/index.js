@@ -32,7 +32,7 @@ export const getLgbtliving = () => {
 };
 
 export const getStops = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/lgbt-couples").then((res) => res.json());
+  return fetch("http://127.0.0.1:8000/couchdb/transport-stops").then((res) => res.json());
 };
 
 export const getLgbtTwit = () => {
@@ -46,3 +46,8 @@ export const getRentTwit = () => {
 export const getTransTwit = () => {
   return fetch("http://127.0.0.1:8000/couchdb/twitter-transport").then((res) => res.json());
 };
+
+export const getRentWeekly = () => {
+  return fetch("http://127.0.0.1:8000/couchdb/weekly-rent").then((res) => res.json());
+};
+
