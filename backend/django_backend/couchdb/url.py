@@ -16,4 +16,7 @@ urlpatterns = [
     path('twitter-transport', views.TwitterTransportView.as_view(), name="twitter-transport"),
     path('twitter-lgbt', views.TwitterLgbtView.as_view(), name="twitter-lgbt"),
     path('twitter-rent', views.TwitterRentView.as_view(), name="twitter-rent"),
+    path('mastodon-transport', views.MastodonTransportView.as_view(), name="twitter-transport"),
+    path('mastodon-lgbt', views.MastodonLgbtView.as_view(), name="twitter-lgbt"),
+    path('mastodon-rent', views.MastodonRentView.as_view(), name="twitter-rent"),
 ]

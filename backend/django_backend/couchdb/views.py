@@ -13,7 +13,9 @@ transport_nswstops_db = server.get("trans_combined_nsw")
 twitter_lgbt_db = server.get("twitter_lgbt")
 twitter_rent_db = server.get("twitter_rent")
 twitter_transport_db = server.get("twitter_transport")
-
+lgbt_mastodon_db = server.get("lgbt_mastodon")
+rent_mastodon_db = server.get("rent_mastodon")
+trans_mastodon_db = server.get("trans_mastodon")
 
 class HealthCheckView(APIView):
     def get(self, request):
@@ -89,3 +91,19 @@ class TwitterLgbtView(APIView):
     def get(self, request):
         twitter_lgbt = map(lambda x: x.value, twitter_lgbt_db.view("view", "lgbt_view").rows)
         return Response({'data': twitter_lgbt})
+    
+
+class MastodonRentView(APIView):
+    def get(self, request):
+        mastodon_rent = map(lambda x: x.value, rent_mastodon_db.view("location", "rent_mastodon").rows)
+        return Response({'data': mastodon_rent})
+    
+class MastodonTransportView(APIView):
+    def get(self, request):
+        mastodon_transport = map(lambda x: x.value, trans_mastodon_db.view("location", "trans_mastodon").rows)
+        return Response({'data': mastodon_transport})
+
+class MastodonLgbtView(APIView):
+    def get(self, request):
+        mastodon_lgbt = map(lambda x: x.value, lgbt_mastodon_db.view("location", "lgbt_mastodon").rows)
+        return Response({'data': mastodon_lgbt})
