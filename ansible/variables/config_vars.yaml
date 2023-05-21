@@ -1,0 +1,91 @@
+---
+# Common variables
+availability_zone: melbourne-qh2-uom
+instance_key_name: yc20230516
+instance_network: qh2-uom-internal
+instance_flavor: uom.mse.1c4g
+instance_image: bbaf16f8-2484-48d7-b455-42209cc4b8d2 # Ubuntu 22.04 (Focal)
+# volume_device_comm: /dev/vdb 
+volume_mount_point_comm: /data
+# current_directory: /home/ubuntu/Documents
+local_directory: "{{ lookup('env', 'HOME') }}/Documents"
+
+image_facts: []
+
+# Volume
+volumes:
+  - vol_name: data-vol-1
+    vol_size: 80
+  - vol_name: ins-vol-1
+    vol_size: 10
+  - vol_name: data-vol-2
+    vol_size: 80
+  - vol_name: ins-vol-2
+    vol_size: 10
+  - vol_name: data-vol-3
+    vol_size: 80
+  - vol_name: master-vol
+    vol_size: 10
+  - vol_name: frontend-vol
+    vol_size: 20
+  - vol_name: backend-vol
+    vol_size: 25
+
+# Security group
+security_groups:
+  - name: ssh
+    description: "Security group for SSH access"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  - name: http
+    description: "Security group for HTTP"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: couchdb
+    description: "Security group for couchdb"
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_ip_prefix: 0.0.0.0/0
+  - name: couchdb-addition
+    description: "Security group for couchdb addition port"
+    protocol: tcp
+    port_range_min: 5986
+    port_range_max: 5986
+    remote_ip_prefix: 0.0.0.0/0
+  - name: couchdb-range
+    description: "Security group for couchdb range port"
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9150
+    remote_ip_prefix: 0.0.0.0/0
+  - name: couchdb-more
+    description: "Security group for couchdb more port"
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
+    remote_ip_prefix: 0.0.0.0/0
+  - name: server-port
+    description: "Additional backend server port"
+    protocol: tcp
+    port_range_min: 8001
+    port_range_max: 8001
+    remote_ip_prefix: 0.0.0.0/0
+
+# Instance
+instances:
+  - name: backend-server
+    security_groups: ['ssh', 'http', 'server-port', 'couchdb', 'couchdb-more', 'couchdb-addition', 'couchdb-range']
+    volumes: ['data-vol-1', 'ins-vol-1', 'backend-vol']
+  - name: data-server
+    security_groups: ['ssh', 'http', 'couchdb', 'couchdb-more', 'couchdb-addition', 'couchdb-range']
+    volumes: ['data-vol-2', 'ins-vol-2']
+  - name: master-server
+    security_groups: ['ssh', 'http', 'server-port', 'couchdb', 'couchdb-more', 'couchdb-addition', 'couchdb-range']
+    volumes: ['data-vol-3', 'master-vol', 'frontend-vol']
+
+
