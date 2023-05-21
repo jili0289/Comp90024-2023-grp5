@@ -57,3 +57,6 @@ export const getRentMast = () => {
   return fetch("/couchdb/mastodon-rent").then((res) => res.json());
 };
 
+export const getTransSenti = () => {
+  return fetch("/couchdb/trans-combined").then((res) => res.json());
+};

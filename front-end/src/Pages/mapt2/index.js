@@ -28,24 +28,24 @@ function Mapt2() {
     map.on('style.load', () => {
       // 从API获取数据
       getLgbtTwit().then((res) => {
-        const data = res.data.map(({ name, coordinates, value, sentiment }) => ({
+        const data = res.data.map(({ name, coordinates, count, sentiment }) => ({
           name: name,
           coordinates: coordinates,
-          value: value,
+          count: count,
           sentiment: sentiment,
         }));
 
         // 创建数据源
         const geojson = {
           type: 'FeatureCollection',
-          features: data.map(({ name, coordinates, value, sentiment }) => ({
+          features: data.map(({ name, coordinates, count, sentiment }) => ({
             type: 'Feature',
             geometry: {
               type: 'Point',
               coordinates: [coordinates[1], coordinates[0]],
             },
             properties: {
-              value: value,
+              count: count,
               name: name,
               sentiment: sentiment,
             },
@@ -65,7 +65,7 @@ function Mapt2() {
           source: 'dots',
           paint: {
             'circle-radius': {
-              property: 'value',
+              property: 'count',
               type: 'exponential',
               stops: [
                 [0, 10],
@@ -73,7 +73,7 @@ function Mapt2() {
               ],
             },
             'circle-color': {
-              property: 'value',
+              property: 'count',
               type: 'exponential',
               stops: [
                 [0, 'blue'], // 自定义蓝色
@@ -91,8 +91,8 @@ function Mapt2() {
           });
 
           if (features.length > 0) {
-            const { name, value, sentiment } = features[0].properties;
-            setSelectedPoint({ name, value, sentiment: sentiment.toFixed(5) });
+            const { name, count, sentiment } = features[0].properties;
+            setSelectedPoint({ name, count, sentiment: sentiment.toFixed(5) });
             setTextBoxVisibility(true);
           }
         });
@@ -131,7 +131,7 @@ function Mapt2() {
           <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '8px' }}>
             City: {selectedPoint.name}
           </p>
-          <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '6px' }}>Twitter Counts: {selectedPoint.value}</p>
+          <p style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '6px' }}>Twitter Counts: {selectedPoint.count}</p>
           <p style={{ fontWeight: 'bold', fontSize: '20px'}}>Mean Sentiment: {selectedPoint.sentiment}</p>
         </div>
       )}
