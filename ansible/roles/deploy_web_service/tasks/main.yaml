@@ -42,4 +42,4 @@
   shell: docker run --name={{ backend_container_name }} -h backend -p 8000:{{ backend_out_port }} -d backend
 
 - name: Run container with image for frontend
-  shell: docker run --name={{ front_container_name }} -p 3000:{{ frontend_out_port }} --link={{ backend_container_name }}:backend -d frontend
+  shell: docker run --name={{ frontend_container_name }} -p 3000:{{ frontend_out_port }} --link={{ backend_container_name }}:backend -d frontend
