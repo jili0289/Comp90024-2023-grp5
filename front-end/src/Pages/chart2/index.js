@@ -1,7 +1,7 @@
 // charts for lgbt
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { getLgbtratio, getLgbtliving } from '../../API';
+import { getLgbtratio, getLgbtliving, getLgbtSenti } from '../../API';
 
 const Chart2 = () => {
   const chartRef1 = useRef(null);
@@ -42,12 +42,6 @@ const Chart2 = () => {
         {
           data: values1,
           type: 'bar',
-          // label: {
-          //   show: true,
-          //   position: 'top', // 在柱状图顶部显示标签
-          //   formatter: '{c}', // 使用数据值作为标签文本
-          //   fontWeight: 'bold', // 标签文本加粗
-          // }
         },
       ],
     };

@@ -19,7 +19,10 @@
     justify-content: flex-start;
     align-items: flex-start;
     background-color: rgba(0, 0, 0, 0.05);
+    background-image: url(../public/images/texture3.jpg);
+    background-size: 100%;  
 }
+
 .SideMenu{
     height: 100%;
 }

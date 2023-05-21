@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { getLgbtratio, getStops } from '../../API';
+import { getTransSenti, getStops } from '../../API';
 import mapboxgl from 'mapbox-gl';
 
 const Chart1 = () => {
-  //const [selectedPoint, setSelectedPoint] = useState({ name: '', value: '' });
-  //const [data, setData] = useState([]);
+  
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoieXVmZW5neDEiLCJhIjoiY2xocWI3ZHE2MmQwdjNkcDAyNGRmd2R1NiJ9.jwoEIy9ZhNrwL9eqUiVCOQ';
 
@@ -89,7 +88,7 @@ const Chart1 = () => {
     
   }, []);
 
-  // chart
+  // // chart
   // const chartRef1 = useRef(null);
   // const [data1, setData1] = useState(null);
 
@@ -98,52 +97,64 @@ const Chart1 = () => {
   //     return;
   //   }
 
-  //   const keys1 = []; // 存储 key 的数组
-  //   const values1 = []; // 存储 value 的数组
-
-  //   // 提取 key 和 value 并存储到数组中
-  //   for (const key in data1) {
-  //     if (Object.hasOwnProperty.call(data, key)) {
-  //       const value = data[key];
-  //       keys.push(key);
-  //       values.push(value);
-  //     }
-  //   }
-
-  //   console.log("Keys:", keys);
-  //   console.log("Values:", values);
-
-  //   const chart = echarts.init(chartRef.current);
-  //   const option = {
-  //     xAxis: {
-  //       type: 'category',
-  //       data: keys,
+  //   const chart1 = echarts.init(chartRef1.current);
+  //   const option1 = {
+  //     tooltip: {
+  //       trigger: 'item',
   //     },
-  //     yAxis: {
-  //       type: 'value',
+  //     legend: {
+  //       top: '5%',
+  //       left: 'center',
   //     },
   //     series: [
   //       {
-  //         data: values,
-  //         type: 'bar',
+  //         name: 'Access From',
+  //         type: 'pie',
+  //         radius: ['40%', '70%'],
+  //         avoidLabelOverlap: false,
+  //         itemStyle: {
+  //           borderRadius: 10,
+  //           borderColor: '#fff',
+  //           borderWidth: 2,
+  //         },
+  //         label: {
+  //           show: false,
+  //           position: 'center',
+  //         },
+  //         emphasis: {
+  //           label: {
+  //             show: true,
+  //             fontSize: 40,
+  //             fontWeight: 'bold',
+  //           },
+  //         },
+  //         labelLine: {
+  //           show: false,
+  //         },
+  //         data: data1,
   //       },
   //     ],
   //   };
 
-  //   chart.setOption(option);
+  //   chart1.setOption(option1);
 
   //   return () => {
-  //     chart.dispose();
+  //     chart1.dispose();
   //   };
-  // }, [data]);
+  // }, [data1]);
 
   // useEffect(() => {
-  //   getLgbtratio().then((res) => {
+  //   getTransSenti().then((res) => {
+  //     const formattedData = [
+  //       { value: res.data.pos, name: 'Positive' },
+  //       { value: res.data.neu, name: 'Neutral' },
+  //       { value: res.data.neg, name: 'Negative' },
+  //     ];
 
-  //     setData(res.same_sex_couple[0]);
-  //     console.log(data)
+  //     setData1(formattedData);
   //   });
   // }, []);
+
 
 
   return (
@@ -154,9 +165,13 @@ const Chart1 = () => {
       <div id="map-container" style={{ width: '100%', height: '800px' }}></div>
       <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
       <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>Chart</h2>
+      {/* <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div> */}
       <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
     </div>
   );
 };
 
 export default Chart1;
+
+
+

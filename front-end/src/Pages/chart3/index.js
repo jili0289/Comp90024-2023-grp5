@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { getRentWeekly } from '../../API';
+import { getRentWeekly, getRentSenti } from '../../API';
 
 const Chart3 = () => {
   const chartRef1 = useRef(null);
@@ -81,7 +81,7 @@ const Chart3 = () => {
 
   return (
     <div>
-      <h1 style={{ position: 'relative', left: '54px', fontWeight: 400, fontSize: '38px', marginTop: '60px' }}>Charts</h1>
+      <h1 style={{ position: 'relative', left: '36px', fontWeight: 400, fontSize: '38px', marginTop: '60px' }}>Charts</h1>
       <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
       <div style={{ display: 'flex' }}>
         <div ref={chartRef1} style={{ width: '50%', height: 700 }}></div>

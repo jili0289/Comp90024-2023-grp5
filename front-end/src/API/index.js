@@ -1,18 +1,3 @@
-export const getOrders = () => {
-  return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
-};
-
-export const getInventory = () => {
-  return fetch("https://dummyjson.com/products").then((res) => res.json());
-};
-
-export const getCustomers = () => {
-  return fetch("https://dummyjson.com/users").then((res) => res.json());
-};
-export const getComments = () => {
-  return fetch("https://dummyjson.com/comments").then((res) => res.json());
-};
-
 export const getSample = () => {
   return fetch("/couchdb/sample").then((res) => res.json());
 };
@@ -59,4 +44,12 @@ export const getRentMast = () => {
 
 export const getTransSenti = () => {
   return fetch("/couchdb/trans-combined").then((res) => res.json());
+};
+
+export const getLgbtSenti = () => {
+  return fetch("/couchdb/lgbt-combined").then((res) => res.json());
+};
+
+export const getRentSenti = () => {
+  return fetch("/couchdb/rent-combined").then((res) => res.json());
 };

@@ -1,7 +1,6 @@
 import { HomeOutlined, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, Space } from "antd";
 import { useEffect, useState } from "react";
-import { getComments, getOrders } from "../../API";
 import "./AppHeader.css";
 import { Link } from 'react-router-dom';
 

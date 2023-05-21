@@ -1,4 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
+
+
 .ant-space-vertical {
-    width: 100%;
-    /* align-items: center; */
-  }
+  width: 100%;
+  /* align-items: center; */
+}
+
+.page-header-title {
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  line-height: 58px;
+  margin-top: 80px;
+}
+
+.page-header-description {
+  font-family: 'Dosis', sans-serif;
+  font-size: 28px;
+  line-height: 44px;
+  margin: 22px 0;
+}
+
+
+
+
