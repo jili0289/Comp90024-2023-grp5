@@ -1,6 +1,22 @@
-- hosts: database
+- hosts: database_nodes
   vars_files:
     - variables/db_vars.yaml
   gather_facts: true
+  vars:
+    - ansible_user: ubuntu
+    - ansible_ssh_private_key_file: couchdb-demo.pem
+    - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   roles:
     - role: create_couchdb
+    
+- hosts: masternode
+  vars_files:
+    - variables/db_vars.yaml
+  gather_facts: true
+  vars:
+    - ansible_user: ubuntu
+    - ansible_ssh_private_key_file: couchdb-demo.pem
+    - ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  roles:
+    - role: create_db_cluster
+  

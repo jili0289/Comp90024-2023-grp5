@@ -1,0 +1,56 @@
+---
+- name: Pause for 10 seconds for created db to initialize
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: setup couchdb cluster | step 1
+  become: yes
+  uri:
+    url: http://{{ groups['masternode'][0] }}:{{db_port1}}/_cluster_setup
+    status_code: 200,201
+    method: POST
+    user: "{{ db_user }}"
+    password:  "{{ db_user }}"
+    force_basic_auth: yes
+    return_content: yes
+    body_format: json
+    body: "{\"action\": \"enable_cluster\", \"bind_address\":\"0.0.0.0\",\
+             \"username\": \"{{ db_user }}\", \"password\":\"{{ db_pass }}\", \"port\": \"{{ db_port1 }}\",\
+             \"remote_node\": \"{{ item }}\", \"node_count\": \"{{ groups['database_nodes'] | length }}\",\
+             \"remote_current_user\":\"{{ db_user }}\", \"remote_current_password\":\"{{ db_pass }}\"}"
+    headers:
+      Content-Type: "application/json"
+  loop: "{{ groups['othernodes'] }}"
+
+- name: setup couchdb cluster | step 2
+  become: yes
+  uri:
+    url: http://{{ groups['masternode'][0] }}:{{db_port1}}/_cluster_setup
+    status_code: 201,409
+    method: POST
+    user: "{{ db_user }}"
+    password:  "{{ db_user }}"
+    force_basic_auth: yes
+    return_content: yes
+    body_format: json
+    body: "{\"action\": \"add_node\", \"host\":\"{{ item }}\",\
+             \"port\": \"{{ db_port1 }}\", \"username\": \"{{ db_user }}\", \"password\":\"{{ db_user }}\"}"
+    headers:
+      Content-Type: "application/json"
+  loop: "{{ groups['othernodes'] }}"
+
+
+- name: steup couchdb cluster | step 3 -- finish
+  become: yes
+  uri:
+    url: http://{{ groups['masternode'][0] }}:{{ db_port1 }}/_cluster_setup
+    status_code: 201
+    method: POST
+    user: "{{ db_user }}"
+    password:  "{{ db_user }}"
+    force_basic_auth: yes
+    return_content: yes
+    body_format: json
+    body: "{\"action\": \"finish_cluster\"}"
+    headers:
+      Content-Type: "application/json"
