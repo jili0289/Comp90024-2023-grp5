@@ -83,21 +83,21 @@ class TransportVicstopsView(APIView):
 class TwitterRentView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        twitter_rent_db = server.get("twitter_rent")
+        twitter_rent_db = server.get("rent_twitter")
         twitter_rent = map(lambda x: x.value, twitter_rent_db.view("rent", "rent_view").rows)
         return Response({'data': twitter_rent})
     
 class TwitterTransportView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        twitter_transport_db = server.get("twitter_transport")
+        twitter_transport_db = server.get("trans_twitter")
         twitter_transport = map(lambda x: x.value, twitter_transport_db.view("transport", "transport_view").rows)
         return Response({'data': twitter_transport})
 
 class TwitterLgbtView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        twitter_lgbt_db = server.get("twitter_lgbt")
+        twitter_lgbt_db = server.get("lgbt_twitter")
         twitter_lgbt = map(lambda x: x.value, twitter_lgbt_db.view("view", "lgbt_view").rows)
         return Response({'data': twitter_lgbt})
     
