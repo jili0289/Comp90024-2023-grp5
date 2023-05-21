@@ -1,0 +1,45 @@
+- name: Install docker
+  become: yes
+  apt:
+    name: ['docker.io']
+    state: latest
+    update_cache: yes
+    
+- name: Install python-docker
+  become: yes
+  apt:
+    name: ['python3-docker']
+    state: latest
+    update_cache: yes
+
+- name: add backend code to remote
+  copy:
+    src: "../backend/"
+    dest: /home/ubuntu/backend/
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: add frontend code to remote
+  copy:
+    src: "../frontend/"
+    dest: /home/ubuntu/frontend/
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+    
+- name: Build image for backend
+  shell: docker build -t backend .
+  args:
+    chdir: /home/ubuntu/backend
+
+- name: Build image for frontend
+  shell: docker build -t frontend .
+  args:
+    chdir: /home/ubuntu/frontend
+    
+- name: Run container with image for backend
+  shell: docker run --name={{ backend_container_name }} -h backend -p 8000:{{ backend_out_port }} -d backend
+
+- name: Run container with image for frontend
+  shell: docker run --name={{ front_container_name }} -p 3000:{{ frontend_out_port }} --link={{ backend_container_name }}:backend -d frontend

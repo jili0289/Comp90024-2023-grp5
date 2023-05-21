@@ -7,12 +7,13 @@ import os
 
 # Create your views here.
 db_ip = os.environ.get('DATABASE', "172.26.131.14")
-username = os.environ.get('USER', "admin")
-password = os.environ.get('PASS', "admin")
+username = os.environ.get('DB_USER', "admin")
+password = os.environ.get('DB_PASS', "admin")
 server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
 
 class HealthCheckView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         memebership = server.get_membership()
         return Response({'status': 'running', "membership" : memebership})
     
@@ -33,12 +34,14 @@ class SampleView(APIView):
    
 class LgbtCouplesView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         lgbt_residence_db = server.get("lgbt_residence")
         same_sex_couple = map(lambda x: x.value, lgbt_residence_db.view("residence", "same_sex_couple").rows)
         return Response({"same_sex_couple": same_sex_couple})
     
 class CouplesLivingView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         lgbt_residence_db = server.get("lgbt_residence")
         # State part
         state_dict = {}
@@ -60,12 +63,14 @@ class CouplesLivingView(APIView):
     
 class WeeklyRentView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         weekly_rent_db = server.get("rental_weeklyrent")
         data = map(lambda x: x.value, weekly_rent_db.view("rent", "rent").rows)
         return Response({'data': data})
     
 class TransportVicstopsView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         transport_vicstops_db = server.get("trans_combined_vic")
         transport_nswstops_db = server.get("trans_combined_nsw")
 
@@ -77,18 +82,21 @@ class TransportVicstopsView(APIView):
     
 class TwitterRentView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         twitter_rent_db = server.get("twitter_rent")
         twitter_rent = map(lambda x: x.value, twitter_rent_db.view("rent", "rent_view").rows)
         return Response({'data': twitter_rent})
     
 class TwitterTransportView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         twitter_transport_db = server.get("twitter_transport")
         twitter_transport = map(lambda x: x.value, twitter_transport_db.view("transport", "transport_view").rows)
         return Response({'data': twitter_transport})
 
 class TwitterLgbtView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         twitter_lgbt_db = server.get("twitter_lgbt")
         twitter_lgbt = map(lambda x: x.value, twitter_lgbt_db.view("view", "lgbt_view").rows)
         return Response({'data': twitter_lgbt})
@@ -96,36 +104,42 @@ class TwitterLgbtView(APIView):
 
 class MastodonRentView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         rent_mastodon_db = server.get("rent_mastodon")
         mastodon_rent = map(lambda x: x.value, rent_mastodon_db.view("location", "rent_mastodon").rows)
         return Response({'data': mastodon_rent})
     
 class MastodonTransportView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         trans_mastodon_db = server.get("trans_mastodon")
         mastodon_transport = map(lambda x: x.value, trans_mastodon_db.view("location", "trans_mastodon").rows)
         return Response({'data': mastodon_transport})
 
 class MastodonLgbtView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         lgbt_mastodon_db = server.get("lgbt_mastodon")
         mastodon_lgbt = map(lambda x: x.value, lgbt_mastodon_db.view("location", "lgbt_mastodon").rows)
         return Response({'data': mastodon_lgbt})
     
 class LgbtCombinedView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         lgbt_combined_db = server.get("lgbt_combined")
         data = map(lambda x: x.value, lgbt_combined_db.view("sentiment", "lgbt_sentiment").rows)
         return Response({'data': data})
     
 class RentCombinedView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         rent_combined_db = server.get("rent_combined")
         data = map(lambda x: x.value, rent_combined_db.view("sentiment", "rent_sentiment").rows)
         return Response({'data': data})
     
 class TransCombinedView(APIView):
     def get(self, request):
+        server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
         trans_combined_db = server.get("trans_combined")
         data = map(lambda x: x.value, trans_combined_db.view("sentiment", "trans_sentiment").rows)
         return Response({'data': data})

@@ -1,0 +1,6 @@
+backend_container_name: backend
+frontend_container_name: frontend
+backend_out_port: 8000
+frontend_out_port: 3000
+db_user: 'admin'
+db_pass: 'admin'
