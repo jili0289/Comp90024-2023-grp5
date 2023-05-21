@@ -1,0 +1,35 @@
+---
+# Create instances on mrc
+- name: Create an instance
+  os_server:
+    name: '{{ item.name }}'
+    image: '{{ instance_image }}'
+    key_name: '{{ instance_key_name }}'
+    flavor: '{{ instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ item.security_groups }}'
+    volumes: '{{ item.volumes }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 600
+    state: present
+  loop: '{{ instances }}'
+  register: os_instance
+
+# - debug:
+#     msg: "Instance name: {{ item.server.name }}, IP address: {{ item.server.addresses['qh2-uom-internal'][0].addr }}"
+#   loop: "{{ os_instance.results }}"
+#   when: item.server is defined
+#   ignore_errors: true
+
+- name: Assign name-ip address pairs to variables
+  set_fact:
+    name_ip_pairs: "{{ name_ip_pairs | default([]) + [ {'name': item.server.name, 'ip_address': item.server.addresses['qh2-uom-internal'][0].addr } ] }}"
+  loop: "{{ os_instance.results }}"
+  when: item.server is defined
+
+- name: Update inventory file using template
+  template:
+    src: hosts.ini.j2
+    dest: "inventory/hosts.ini"
+  when: name_ip_pairs is defined

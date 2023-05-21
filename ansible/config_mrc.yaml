@@ -1,0 +1,13 @@
+---
+# Configure basic instances
+- hosts: localhost
+  vars_files:
+    - variables/config_vars.yaml
+  gather_facts: true
+
+  roles:
+    - role: config-common
+    - role: config-images
+    - role: config-volumes
+    - role: config-security-groups
+    - role: config-instances

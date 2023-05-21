@@ -1,0 +1,13 @@
+---
+# Setup and deploy the environment
+- hosts: all
+  vars_files:
+    - variables/config_vars.yaml
+    - variables/server_vars.yaml
+  gather_facts: true
+  roles:
+
+    - role: deploy-environment
+    # - role: deploy-git-clone
+    # - role: deploy-volumes
+    # - role: deploy-frontend
