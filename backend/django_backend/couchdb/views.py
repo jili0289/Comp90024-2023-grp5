@@ -3,9 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpResponse
 import couchdb2
+import os
 
 # Create your views here.
-server = couchdb2.Server(href="http://172.26.131.14:5984/", username="admin", password="admin")
+db_ip = os.environ.get('DATABASE', "172.26.131.14")
+username = os.environ.get('USER', "admin")
+password = os.environ.get('PASS', "admin")
+server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
 
 class HealthCheckView(APIView):
     def get(self, request):
@@ -62,7 +66,7 @@ class WeeklyRentView(APIView):
     
 class TransportVicstopsView(APIView):
     def get(self, request):
-        transport_vicstops_db = server.get("trans_combined")
+        transport_vicstops_db = server.get("trans_combined_vic")
         transport_nswstops_db = server.get("trans_combined_nsw")
 
         vic_raw_data = transport_vicstops_db.view(r"stops", "vic_stops").rows
@@ -107,3 +111,21 @@ class MastodonLgbtView(APIView):
         lgbt_mastodon_db = server.get("lgbt_mastodon")
         mastodon_lgbt = map(lambda x: x.value, lgbt_mastodon_db.view("location", "lgbt_mastodon").rows)
         return Response({'data': mastodon_lgbt})
+    
+class LgbtCombinedView(APIView):
+    def get(self, request):
+        lgbt_combined_db = server.get("lgbt_combined")
+        data = map(lambda x: x.value, lgbt_combined_db.view("sentiment", "lgbt_sentiment").rows)
+        return Response({'data': data})
+    
+class RentCombinedView(APIView):
+    def get(self, request):
+        rent_combined_db = server.get("rent_combined")
+        data = map(lambda x: x.value, rent_combined_db.view("sentiment", "rent_sentiment").rows)
+        return Response({'data': data})
+    
+class TransCombinedView(APIView):
+    def get(self, request):
+        trans_combined_db = server.get("trans_combined")
+        data = map(lambda x: x.value, trans_combined_db.view("sentiment", "trans_sentiment").rows)
+        return Response({'data': data})
