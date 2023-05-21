@@ -5,17 +5,7 @@ from django.http import HttpResponse
 import couchdb2
 
 # Create your views here.
-server = couchdb2.Server(href="http://172.26.129.246:5984/", username="admin", password="admin", use_session=True)
-lgbt_residence_db = server.get("lgbt_residence")
-weekly_rent_db = server.get("rental_weeklyrent")
-transport_vicstops_db = server.get("trans_combined")
-transport_nswstops_db = server.get("trans_combined_nsw")
-twitter_lgbt_db = server.get("twitter_lgbt")
-twitter_rent_db = server.get("twitter_rent")
-twitter_transport_db = server.get("twitter_transport")
-lgbt_mastodon_db = server.get("lgbt_mastodon")
-rent_mastodon_db = server.get("rent_mastodon")
-trans_mastodon_db = server.get("trans_mastodon")
+server = couchdb2.Server(href="http://172.26.131.14:5984/", username="admin", password="admin")
 
 class HealthCheckView(APIView):
     def get(self, request):
@@ -39,25 +29,26 @@ class SampleView(APIView):
    
 class LgbtCouplesView(APIView):
     def get(self, request):
-        # data = lgbt_residence_db["0e976397b36cd829c9120b3176e729a4"]["couples"]
-        same_sex_couple = map(lambda x: x.value, lgbt_residence_db.view("couple", "same_sex_couple").rows)
+        lgbt_residence_db = server.get("lgbt_residence")
+        same_sex_couple = map(lambda x: x.value, lgbt_residence_db.view("residence", "same_sex_couple").rows)
         return Response({"same_sex_couple": same_sex_couple})
     
 class CouplesLivingView(APIView):
     def get(self, request):
+        lgbt_residence_db = server.get("lgbt_residence")
         # State part
         state_dict = {}
-        female_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_livingtogether").rows)
-        male_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "male_couple_livingtogether").rows)
-        total_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("couple", "total_couple_livingtogether").rows)
+        female_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("residence", "female_couple_livingtogether").rows)
+        male_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("residence", "male_couple_livingtogether").rows)
+        total_couple_livingtogether = map(lambda x: x.value, lgbt_residence_db.view("residence", "total_couple_livingtogether").rows)
         state_dict["female_couple_livingtogether"] = female_couple_livingtogether
         state_dict["male_couple_livingtogether"] = male_couple_livingtogether
         state_dict["total_couple_livingtogether"] = total_couple_livingtogether
         # City Part
         city_dict = {}
-        female_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "female_couple_city").rows)
-        male_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "male_couple_city").rows)
-        total_couple_city = map(lambda x: x.value, lgbt_residence_db.view("couple", "total_couple_city").rows)
+        female_couple_city = map(lambda x: x.value, lgbt_residence_db.view("residence", "female_couple_city").rows)
+        male_couple_city = map(lambda x: x.value, lgbt_residence_db.view("residence", "male_couple_city").rows)
+        total_couple_city = map(lambda x: x.value, lgbt_residence_db.view("residence", "total_couple_city").rows)
         city_dict["female_couple_city"] = female_couple_city
         city_dict["male_couple_city"] = male_couple_city
         city_dict["total_couple_city"] = total_couple_city
@@ -65,12 +56,15 @@ class CouplesLivingView(APIView):
     
 class WeeklyRentView(APIView):
     def get(self, request):
-        # data = weekly_rent_db["4789dae991c9ae7504a75c0820d7b4c2"]["rent"]
+        weekly_rent_db = server.get("rental_weeklyrent")
         data = map(lambda x: x.value, weekly_rent_db.view("rent", "rent").rows)
         return Response({'data': data})
     
 class TransportVicstopsView(APIView):
     def get(self, request):
+        transport_vicstops_db = server.get("trans_combined")
+        transport_nswstops_db = server.get("trans_combined_nsw")
+
         vic_raw_data = transport_vicstops_db.view(r"stops", "vic_stops").rows
         nsw_raw_data = transport_nswstops_db.view(r"stops", "nsw_stops").rows
         vic_data = list(map(lambda x: x.value, vic_raw_data))
@@ -79,31 +73,37 @@ class TransportVicstopsView(APIView):
     
 class TwitterRentView(APIView):
     def get(self, request):
+        twitter_rent_db = server.get("twitter_rent")
         twitter_rent = map(lambda x: x.value, twitter_rent_db.view("rent", "rent_view").rows)
         return Response({'data': twitter_rent})
     
 class TwitterTransportView(APIView):
     def get(self, request):
+        twitter_transport_db = server.get("twitter_transport")
         twitter_transport = map(lambda x: x.value, twitter_transport_db.view("transport", "transport_view").rows)
         return Response({'data': twitter_transport})
 
 class TwitterLgbtView(APIView):
     def get(self, request):
+        twitter_lgbt_db = server.get("twitter_lgbt")
         twitter_lgbt = map(lambda x: x.value, twitter_lgbt_db.view("view", "lgbt_view").rows)
         return Response({'data': twitter_lgbt})
     
 
 class MastodonRentView(APIView):
     def get(self, request):
+        rent_mastodon_db = server.get("rent_mastodon")
         mastodon_rent = map(lambda x: x.value, rent_mastodon_db.view("location", "rent_mastodon").rows)
         return Response({'data': mastodon_rent})
     
 class MastodonTransportView(APIView):
     def get(self, request):
+        trans_mastodon_db = server.get("trans_mastodon")
         mastodon_transport = map(lambda x: x.value, trans_mastodon_db.view("location", "trans_mastodon").rows)
         return Response({'data': mastodon_transport})
 
 class MastodonLgbtView(APIView):
     def get(self, request):
+        lgbt_mastodon_db = server.get("lgbt_mastodon")
         mastodon_lgbt = map(lambda x: x.value, lgbt_mastodon_db.view("location", "lgbt_mastodon").rows)
         return Response({'data': mastodon_lgbt})

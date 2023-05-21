@@ -14,46 +14,46 @@ export const getComments = () => {
 };
 
 export const getSample = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/sample").then((res) => res.json());
+  return fetch("/couchdb/sample").then((res) => res.json());
 };
 
 export const getLgbtratio = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/lgbt-couples").then((res) => res.json());
+  return fetch("/couchdb/lgbt-couples").then((res) => res.json());
 };
 
 export const getLgbtliving = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/couples-living").then((res) => res.json());
+  return fetch("/couchdb/couples-living").then((res) => res.json());
 };
 
 export const getStops = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/transport-stops").then((res) => res.json());
+  return fetch("/couchdb/transport-stops").then((res) => res.json());
 };
 
 export const getLgbtTwit = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/twitter-lgbt").then((res) => res.json());
+  return fetch("/couchdb/twitter-lgbt").then((res) => res.json());
 };
 
 export const getRentTwit = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/twitter-rent").then((res) => res.json());
+  return fetch("/couchdb/twitter-rent").then((res) => res.json());
 };
 
 export const getTransTwit = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/twitter-transport").then((res) => res.json());
+  return fetch("/couchdb/twitter-transport").then((res) => res.json());
 };
 
 export const getRentWeekly = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/weekly-rent").then((res) => res.json());
+  return fetch("/couchdb/weekly-rent").then((res) => res.json());
 };
 
 export const getTransMast = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/mastodon-transport").then((res) => res.json());
+  return fetch("/couchdb/mastodon-transport").then((res) => res.json());
 };
 
 export const getLgbtMast = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/mastodon-lgbt").then((res) => res.json());
+  return fetch("/couchdb/mastodon-lgbt").then((res) => res.json());
 };
 
 export const getRentMast = () => {
-  return fetch("http://127.0.0.1:8000/couchdb/mastodon-rent").then((res) => res.json());
+  return fetch("/couchdb/mastodon-rent").then((res) => res.json());
 };
 

@@ -1,7 +1,8 @@
 couchdb_image: 'ibmcom/couchdb3:3.2.1'
+couchdb_container_name: 'couchdb'
 db_user: 'admin'
 db_pass: 'admin'
 db_cookie: 'a192aeb9904e6590849337933b000c99'
 db_port1: 5984
 db_port2: 4369
-db_port3: 9100
+db_port3: 9200
