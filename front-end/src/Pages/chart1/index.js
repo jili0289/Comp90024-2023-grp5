@@ -88,84 +88,86 @@ const Chart1 = () => {
     
   }, []);
 
-  // // chart
-  // const chartRef1 = useRef(null);
-  // const [data1, setData1] = useState(null);
+  // chart
+  const chartRef1 = useRef(null);
+  const [data1, setData1] = useState(null);
 
-  // useEffect(() => {
-  //   if (!chartRef1.current || !data1) {
-  //     return;
-  //   }
+  useEffect(() => {
+    if (!chartRef1.current || !data1) {
+      return;
+    }
 
-  //   const chart1 = echarts.init(chartRef1.current);
-  //   const option1 = {
-  //     tooltip: {
-  //       trigger: 'item',
-  //     },
-  //     legend: {
-  //       top: '5%',
-  //       left: 'center',
-  //     },
-  //     series: [
-  //       {
-  //         name: 'Access From',
-  //         type: 'pie',
-  //         radius: ['40%', '70%'],
-  //         avoidLabelOverlap: false,
-  //         itemStyle: {
-  //           borderRadius: 10,
-  //           borderColor: '#fff',
-  //           borderWidth: 2,
-  //         },
-  //         label: {
-  //           show: false,
-  //           position: 'center',
-  //         },
-  //         emphasis: {
-  //           label: {
-  //             show: true,
-  //             fontSize: 40,
-  //             fontWeight: 'bold',
-  //           },
-  //         },
-  //         labelLine: {
-  //           show: false,
-  //         },
-  //         data: data1,
-  //       },
-  //     ],
-  //   };
+    const chart1 = echarts.init(chartRef1.current);
+    const option1 = {
+      tooltip: {
+        trigger: 'item',
+      },
+      legend: {
+        top: '5%',
+        left: 'center',
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2,
+          },
+          label: {
+            show: false,
+            position: 'center',
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 40,
+              fontWeight: 'bold',
+            },
+          },
+          labelLine: {
+            show: false,
+          },
+          data: data1,
+        },
+      ],
+    };
 
-  //   chart1.setOption(option1);
+    chart1.setOption(option1);
 
-  //   return () => {
-  //     chart1.dispose();
-  //   };
-  // }, [data1]);
+    return () => {
+      chart1.dispose();
+    };
+  }, [data1]);
 
-  // useEffect(() => {
-  //   getTransSenti().then((res) => {
-  //     const formattedData = [
-  //       { value: res.data.pos, name: 'Positive' },
-  //       { value: res.data.neu, name: 'Neutral' },
-  //       { value: res.data.neg, name: 'Negative' },
-  //     ];
+  useEffect(() => {
+    getTransSenti().then((res) => {
+      const formattedData = [
+        { value: res.data[0].pos, name: 'Positive' },
+        { value: res.data[0].neu, name: 'Neutral' },
+        { value: res.data[0].neg, name: 'Negative' },
+      ];
 
-  //     setData1(formattedData);
-  //   });
-  // }, []);
+      setData1(formattedData);
+    });
+  }, []);
 
 
 
   return (
     <div>
-      <h1 style={{ position: 'relative', fontWeight: 400, fontSize: '38px', marginTop: '60px' }}>Charts</h1>
       <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
-      <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>Density Plot of VIC & NSW Stops</h2>
+      <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>Chart 1: Density Plot of NSW & VIC Stops</h1>
+      <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>
+        This map shows the distribution and density of public stops in New South Wales and Victoria.</h2>
       <div id="map-container" style={{ width: '100%', height: '800px' }}></div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
-      <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>Chart</h2>
-      {/* <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div> */}
+      <div style={{ marginBottom: '120px' }}></div> {/* 添加空白区域 */}
+      <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>
+      Chart 2: Ratio of sentiments all over Australia</h1>
+      <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div>
       <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
     </div>
   );

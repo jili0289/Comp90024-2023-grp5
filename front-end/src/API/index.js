@@ -1,7 +1,3 @@
-export const getSample = () => {
-  return fetch("/couchdb/sample").then((res) => res.json());
-};
-
 export const getLgbtratio = () => {
   return fetch("/couchdb/lgbt-couples").then((res) => res.json());
 };

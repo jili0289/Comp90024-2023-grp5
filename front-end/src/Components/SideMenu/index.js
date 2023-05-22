@@ -51,19 +51,19 @@ function SideMenu() {
             icon: <AppstoreOutlined />,
             key: "/",
           },
-          getItem('Scenario One', 'sub1', <CarOutlined />, [
+          getItem('Transport', 'sub1', <CarOutlined />, [
             getItem('Twitter', "/mapt1"),
             getItem('Mastodon', "/mapm1"),
             getItem('Charts', "/chart1")
           ]),
           
-          getItem('Scenario Two', 'sub2', <TeamOutlined />, [
+          getItem('LGBTQ+', 'sub2', <TeamOutlined />, [
             getItem('Twitter', "/mapt2"),
             getItem('Mastodon', "/mapm2"),
             getItem('Charts', "/chart2")
           ]),
 
-          getItem('Scenario Three', 'sub3', <BankOutlined />, [
+          getItem('House Renting', 'sub3', <BankOutlined />, [
             getItem('Twitter', "/mapt3"),
             getItem('Mastodon', "/mapm3"),
             getItem('Charts', "/chart3")
