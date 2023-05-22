@@ -126,20 +126,20 @@ class MastodonLgbtView(APIView):
 class LgbtCombinedView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        lgbt_combined_db = server.get("lgbt_combined")
-        data = map(lambda x: x.value, lgbt_combined_db.view("sentiment", "lgbt_sentiment").rows)
+        lgbt_combined_db = server.get("lgbt_ratio")
+        data = map(lambda x: x.value, lgbt_combined_db.view("ratio", "ratio").rows)
         return Response({'data': data})
     
 class RentCombinedView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        rent_combined_db = server.get("rent_combined")
-        data = map(lambda x: x.value, rent_combined_db.view("sentiment", "rent_sentiment").rows)
+        rent_combined_db = server.get("rent_ratio")
+        data = map(lambda x: x.value, rent_combined_db.view("ratio", "ratio").rows)
         return Response({'data': data})
     
 class TransCombinedView(APIView):
     def get(self, request):
         server = couchdb2.Server(href="http://" + db_ip + ":5984/", username=username, password=password)
-        trans_combined_db = server.get("trans_combined")
-        data = map(lambda x: x.value, trans_combined_db.view("sentiment", "trans_sentiment").rows)
+        trans_combined_db = server.get("trans_ratio")
+        data = map(lambda x: x.value, trans_combined_db.view("ratio", "ratio").rows)
         return Response({'data': data})
