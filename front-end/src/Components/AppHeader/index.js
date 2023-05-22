@@ -15,7 +15,7 @@ function AppHeader() {
         <HomeOutlined />
       </Link>
 
-      <h1 className="title">CCC Group 5 Dashboard</h1>
+      <h1 className="title">CCC Group 5 Homepage</h1>
 
       <Space>
         <Badge >

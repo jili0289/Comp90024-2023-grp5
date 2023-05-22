@@ -107,14 +107,15 @@ function Mapt1() {
 
   return (
     <div>
-      <h1 style={{ fontWeight: 400}}>Twitter</h1>
-      <div style={{ marginBottom: '30px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <h1 style={{ fontWeight: 400}}>Map: # of tweets mentioning TRANSPORT topic with average sentiment scores</h1>
+      <div style={{ marginBottom: '45px' }}></div> {/* 添加空白区域 */}
       <div id="map" style={{ width: '100%', height: '1000px' }}></div>
       {isTextBoxVisible && (
         <div
           style={{
             position: 'absolute',
-            top: '206px',
+            top: '281px',
             right: '103px',
             padding: '10px 24px 10px 24px',
             background: '#F2F7FD',
