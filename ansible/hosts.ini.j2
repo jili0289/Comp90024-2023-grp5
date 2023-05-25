@@ -1,0 +1,8 @@
+[all:vars]
+ansible_user=ubuntu
+
+{% for pair in name_ip_pairs %}
+[{{ pair.name }}]
+{{ pair.ip_address }}
+
+{% endfor %}
