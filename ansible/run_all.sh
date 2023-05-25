@@ -7,6 +7,3 @@ ansible-playbook config_mrc.yaml -i ~/.ssh/yc20230516.pem
 
 # Deploy all instances/nodes environment
 ansible-playbook deploy_mrc.yaml -i inventory/hosts.ini
-
-# Lanuch mrc application
-# ansible-playbook launch_mrc.yaml -i inventory/hosts.ini
