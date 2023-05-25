@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# COMP90024-2023S1-group5
+# City: Melbourne
+# Zixuan Cheng 1165964
+# Jiayun Huang 1249398
+# Jiayuan Li 1404463
+# Yufeng Xie 1166106
+# Chang Yu 1397927
+
+
 . unimelb-comp90024-2023-grp-5-openrc.sh
 
 # Configure basic instances/nodes
