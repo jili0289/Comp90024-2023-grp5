@@ -1,4 +1,9 @@
 ---
+
+
+
+# this part we didn't upload config folder
+
 # Get ssh key for github clone
 - name: add github ssh key
   copy:
