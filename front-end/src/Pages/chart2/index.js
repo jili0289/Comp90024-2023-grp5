@@ -1,4 +1,4 @@
-// charts for lgbt
+
 import React, { useRef, useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 import { getLgbtratio, getLgbtliving, getLgbtSenti } from '../../API';
@@ -29,7 +29,7 @@ const Chart2 = () => {
         data: keys1,
         axisLabel: {
           rotate: 15,
-          interval: 0, // 或其他适当的值
+          interval: 0, 
         },
       },
       yAxis: {
@@ -56,13 +56,13 @@ const Chart2 = () => {
       return;
     }
 
-    // 从 data2 中提取所有数据
+    
     const allData = Object.values(data2).flatMap((dataArray) => dataArray[0]);
 
-    // 提取所有 x 值作为 category
+    
     const categories = Object.keys(allData[0]);
 
-    // 根据 x 值，将所有对应的 y 值分组
+    
     const seriesData = Object.values(data2).map((dataArray) =>
       Object.values(dataArray[0])
     );
@@ -79,12 +79,12 @@ const Chart2 = () => {
       series: seriesData.map((data, index) => ({
         data,
         type: 'bar',
-        name: Object.keys(data2)[index], // 使用数据的键作为系列名称
+        name: Object.keys(data2)[index], 
       })),
       legend: {
-        data: Object.keys(data2), // 图例的数据，即系列的名称
+        data: Object.keys(data2), 
         formatter: function (name) {
-          // 自定义图例的文字
+          
           if (name === 'female_couple_livingtogether') {
             return 'Female Couple';
           } else if (name === 'male_couple_livingtogether') {
@@ -105,19 +105,19 @@ const Chart2 = () => {
     };
   }, [data2]);
 
-  // Chart 3
+  
   useEffect(() => {
     if (!chartRef3.current || !data3) {
       return;
     }
 
-    // 从 data3 中提取所有数据
+    
     const allData = Object.values(data3).flatMap((dataArray) => dataArray[0]);
 
-    // 提取所有 x 值作为 category
+    
     const categories = Object.keys(allData[0]);
 
-    // 根据 x 值，将所有对应的 y 值分组
+    
     const seriesData = Object.values(data3).map((dataArray) =>
       Object.values(dataArray[0])
     );
@@ -134,12 +134,12 @@ const Chart2 = () => {
       series: seriesData.map((data, index) => ({
         data,
         type: 'bar',
-        name: Object.keys(data3)[index], // 使用数据的键作为系列名称
+        name: Object.keys(data3)[index], 
       })),
       legend: {
-        data: Object.keys(data3), // 图例的数据，即系列的名称
+        data: Object.keys(data3), 
         formatter: function (name) {
-          // 自定义图例的文字
+          
           if (name === 'female_couple_city') {
             return 'Female Couple';
           } else if (name === 'male_couple_city') {
@@ -160,7 +160,7 @@ const Chart2 = () => {
     };
   }, [data3]);
 
-  // chart 4
+  
 
   useEffect(() => {
     if (!chartRef4.current || !data4) {
@@ -237,11 +237,11 @@ const Chart2 = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '80px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px' , fontWeight: 400 }}>
         Chart 1: Proportion of LGBTQ+ People in Different States</h1>
       <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px', fontWeight: 400 }}>
         Chart 2 & 3: Proportion of LGBTQ+ couples living together by <span style={{ fontStyle: 'italic' }}>State</span> vs by <span style={{ fontStyle: 'italic' }}>City</span></h1>
       <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px', fontWeight: 400 }}>
@@ -250,12 +250,12 @@ const Chart2 = () => {
         <div ref={chartRef2} style={{ width: '50%', height: 500 }}></div>
         <div ref={chartRef3} style={{ width: '50%', height: 500 }}></div>
       </div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '54px' , fontWeight: 400 }}>
         Chart 4: Ratio of sentiments all over Australia</h1>
       <div ref={chartRef4} style={{ width: '60%', height: 600 }}></div>
 
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
     </div>
 
   );

@@ -11,7 +11,7 @@ const Chart1 = () => {
     const map = new mapboxgl.Map({
       container: 'map-container',
       style: 'mapbox://styles/yufengx1/clhqbn6y600mx01r86e7o00y1',
-      center: [145, -36], // 调整地图中心坐标
+      center: [145, -36], 
       zoom: 6, 
       attributionControl: false,
       pitch: 0,
@@ -19,20 +19,20 @@ const Chart1 = () => {
     });
     
     const bounds = [
-      [140, -40], // VIC 左下角坐标
-      [155, -28], // NSW 右上角坐标
+      [140, -40], 
+      [155, -28], 
     ];
     map.fitBounds(bounds, { padding: 20 });
 
     map.on('style.load', () => {
-      // 从API获取数据
+      
       getStops().then((res) => {
         const data = res.data.map(({ coordinates, count }) => ({
           coordinates: JSON.parse(coordinates),
           count: parseInt(count),
         }));
 
-        // 创建数据源
+        
         const geojson = {
           type: 'FeatureCollection',
           features: data.map(({ coordinates, count }) => ({
@@ -48,13 +48,13 @@ const Chart1 = () => {
           })),
         };
 
-        // 添加数据源
+        
         map.addSource('dots', {
           type: 'geojson',
           data: geojson,
         });
 
-        // 添加图层
+        
         map.addLayer({
           id: 'dots-layer',
           type: 'circle',
@@ -72,8 +72,8 @@ const Chart1 = () => {
               property: 'count',
               type: 'exponential',
               stops: [
-                [0, '#4455E6'], // 自定义蓝色
-                [200, '#EE2626'], // 自定义红色
+                [0, '#4455E6'], 
+                [200, '#EE2626'], 
               ],
             },
             'circle-opacity': 0.7,
@@ -81,7 +81,7 @@ const Chart1 = () => {
         });
       });
     });
-    // 清理地图实例
+    
     return () => {
       map.remove();
     };
@@ -159,16 +159,16 @@ const Chart1 = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '80px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>Chart 1: Density Plot of NSW & VIC Stops</h1>
       <h2 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>
         This map shows the distribution and density of public stops in New South Wales and Victoria.</h2>
       <div id="map-container" style={{ width: '100%', height: '800px' }}></div>
-      <div style={{ marginBottom: '120px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '120px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', fontWeight: 400 }}>
       Chart 2: Ratio of sentiments all over Australia</h1>
       <div ref={chartRef1} style={{ width: '60%', height: 600 }}></div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
     </div>
   );
 };

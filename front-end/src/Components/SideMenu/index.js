@@ -41,7 +41,7 @@ function SideMenu() {
         className="SideMenuVertical"
         mode="vertical"
         onClick={(item) => {
-          //item.key
+          
           navigate(item.key);
         }}
         selectedKeys={[selectedKeys]}

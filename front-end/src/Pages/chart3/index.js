@@ -24,7 +24,7 @@ const Chart3 = () => {
         type: 'category',
         data: keys1,
         axisLabel: {
-          interval: 0, // 或其他适当的值
+          interval: 0, 
         },
       },
       yAxis: {
@@ -52,7 +52,7 @@ const Chart3 = () => {
       return;
     }
 
-    // Chart 2
+    
     const keys2 = Object.keys(data1.data[1]);
     const values2 = Object.values(data1.data[1]);
 
@@ -82,7 +82,7 @@ const Chart3 = () => {
     };
   }, [data1]);
 
-  // chart 3
+  
   useEffect(() => {
     if (!chartRef3.current || !data3) {
       return;
@@ -153,18 +153,18 @@ const Chart3 = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '80px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '36px', fontWeight: 400 }}>
       Chart 1 & 2: Total weekly renting price by <span style={{ fontStyle: 'italic' }}>State</span> vs by <span style={{ fontStyle: 'italic' }}>City</span></h1>
       <div style={{ display: 'flex' }}>
         <div ref={chartRef2} style={{ width: '50%', height: 900 }}></div>
         <div ref={chartRef1} style={{ width: '50%', height: 900 }}></div>
       </div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
       <h1 style={{ marginBottom: '45px', marginTop: '40px', position: 'relative', left: '39px' , fontWeight: 400 }}>
       Chart 3: Ratio of sentiments all over Australia</h1>
       <div ref={chartRef3} style={{ width: '60%', height: 600 }}></div>
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
     
     </div>
   );

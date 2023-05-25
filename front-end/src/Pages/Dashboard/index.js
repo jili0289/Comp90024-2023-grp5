@@ -23,7 +23,7 @@ function Dashboard() {
           <br/><br/>
           Group members that contribute to this project are Zixuan Cheng, Jiayun Huang, Jiayuan Li, Yufeng Xie & Chang Yu.<br/><br/>
           <strong style={{fontSize: '32px'}}>Discover interesting stats about Aussies with us now!</strong>
-          <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+          <div style={{ marginBottom: '100px' }}></div> 
       </div>
     </div>
   

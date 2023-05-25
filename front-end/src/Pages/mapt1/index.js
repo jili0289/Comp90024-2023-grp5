@@ -26,7 +26,7 @@ function Mapt1() {
     map.fitBounds(bounds, { padding: 20 });
 
     map.on('style.load', () => {
-      // 从API获取数据
+      
       getTransTwit().then((res) => {
         const data = res.data.map(({ name, coordinates, count, sentiment }) => ({
           name: name,
@@ -35,7 +35,7 @@ function Mapt1() {
           sentiment: sentiment,
         }));
 
-        // 创建数据源
+        
         const geojson = {
           type: 'FeatureCollection',
           features: data.map(({ name, coordinates, count, sentiment }) => ({
@@ -52,13 +52,13 @@ function Mapt1() {
           })),
         };
 
-        // 添加数据源
+        
         map.addSource('dots', {
           type: 'geojson',
           data: geojson,
         });
 
-        // 添加图层
+        
         map.addLayer({
           id: 'dots-layer',
           type: 'circle',
@@ -76,15 +76,15 @@ function Mapt1() {
               property: 'count',
               type: 'exponential',
               stops: [
-                [0, 'blue'], // 自定义蓝色
-                [20000, 'red'], // 自定义红色
+                [0, 'blue'], 
+                [20000, 'red'], 
               ],
             },
             'circle-opacity': 0.7,
           },
         });
 
-        // 鼠标点击事件处理程序
+        
         map.on('click', 'dots-layer', (e) => {
           const features = map.queryRenderedFeatures(e.point, {
             layers: ['dots-layer'],
@@ -99,7 +99,7 @@ function Mapt1() {
       });
     });
 
-    // 在组件卸载时清理地图实例
+    
     return () => {
       map.remove();
     };
@@ -107,9 +107,9 @@ function Mapt1() {
 
   return (
     <div>
-      <div style={{ marginBottom: '80px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '80px' }}></div> 
       <h1 style={{ fontWeight: 400}}>Map: # of tweets mentioning TRANSPORT topic with average sentiment scores</h1>
-      <div style={{ marginBottom: '45px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '45px' }}></div> 
       <div id="map" style={{ width: '100%', height: '1000px' }}></div>
       {isTextBoxVisible && (
         <div
@@ -137,7 +137,7 @@ function Mapt1() {
         </div>
       )}
 
-      <div style={{ marginBottom: '100px' }}></div> {/* 添加空白区域 */}
+      <div style={{ marginBottom: '100px' }}></div> 
     </div>
   );
 }
